@@ -1,4 +1,4 @@
-class States():
+class State():
     def __init__(self):
         self.done = False
         self.next = None

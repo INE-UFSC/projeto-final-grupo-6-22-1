@@ -1,6 +1,6 @@
 import pygame as pg
-from States import States
-from Player import Player
+from States.State import State
+from Sprites.Player import Player
 
 
 class Room(object):
@@ -21,9 +21,9 @@ class Room(object):
         Carrega a sala, entry point indica de que direção o player veio
         """
 
-class Game(States):
+class Game(State):
     def __init__(self):
-        States.__init__(self)
+        State.__init__(self)
 
         self.jogador = pg.sprite.GroupSingle()
         self.attacks = pg.sprite.Group()

@@ -1,6 +1,6 @@
 import pygame as pg
 from get_image import get_image #temporario?
-from Attack import Attack
+from Sprites.Attack import Attack
 
 TAMANHO_PERSONAGEM = (28, 78)
 

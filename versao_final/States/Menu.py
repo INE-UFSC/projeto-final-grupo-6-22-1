@@ -1,11 +1,11 @@
 import pygame as pg
-from States import States
+from States.State import State
 
 
 
-class Menu(States):
+class Menu(State):
     def __init__(self, menu_font):
-        States.__init__(self)
+        State.__init__(self)
 
         self.rect_jogar = pg.Rect(180, 430, 300, 125)
         self.text_jogar = menu_font.render('Jogar', True, (0, 0, 0))

@@ -1,8 +1,8 @@
 import pygame as pg
 import sys
 
-from Game import Game
-from Menu import Menu
+from States.Game import Game
+from States.Menu import Menu
 
 TAMANHO_TELA = (1280, 720)
 
