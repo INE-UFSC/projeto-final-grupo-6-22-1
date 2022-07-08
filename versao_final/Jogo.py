@@ -3,6 +3,7 @@ import sys
 
 from States.Game import Game
 from States.Menu import Menu
+from States.GameOver import GameOver
 
 TAMANHO_TELA = (1280, 720)
 
@@ -65,10 +66,10 @@ jogo = Control()
 state_dict = {
     'menu': Menu(menu_font),
     'game': Game(),
+    'game_over': GameOver(menu_font),
     #win
-    #game_over
 }
-jogo.setup_states(state_dict, 'menu')
+jogo.setup_states(state_dict, 'game_over')
 jogo.main_game_loop()
 
 pg.quit()
