@@ -1,25 +1,7 @@
 import pygame as pg
 from States.AbstractState import AbstractState
 from Sprites.Player import Player
-
-
-class Room(object):
-    def __init__(self):
-        self.visited = False
-    
-    def draw_background(self, screen):
-        """
-        Pinta a sala de branco caso não informado background
-        """
-        screen.fill((255, 255, 255))
-
-    def draw_art(self):
-        pass
-
-    def load(self, entry_point):
-        """
-        Carrega a sala, entry point indica de que direção o player veio
-        """
+from Rooms.RoomController import RoomController
 
 class Game(AbstractState):
     def __init__(self):
@@ -29,7 +11,7 @@ class Game(AbstractState):
         self.attack_sprite_group = pg.sprite.Group()
         self.player_sprite_group.add(Player(start_pos=(200, 200)))
 
-        self.current_room = Room()
+        self.room_controller = RoomController()
 
 
     def handle_events(self, event):
@@ -60,6 +42,12 @@ class Game(AbstractState):
 
     def handle_keys(self, keys):
         super().handle_keys(keys)
+
+        if keys[pg.K_LEFT]:
+            self.room_controller.change_room(0)
+
+        if keys[pg.K_RIGHT]:
+            self.room_controller.change_room(1)
 
         #movimento player_sprite_group
         if keys[pg.K_w]:
@@ -99,7 +87,7 @@ class Game(AbstractState):
 
     def draw(self, screen):
 
-        self.current_room.draw_background(screen)
+        self.room_controller.draw(screen)
 
         pg.draw.rect(screen, (99, 23, 23), pg.Rect(0, 0, 1280, 180)) #HUD
 
