@@ -1,20 +1,17 @@
 import pygame as pg
-from States.State import State
+from States.AbstractState import AbstractState
 
 
 
-class Menu(State):
+class Menu(AbstractState):
     def __init__(self, menu_font):
-        State.__init__(self)
+        super().__init__()
 
         self.rect_jogar = pg.Rect(180, 430, 300, 125)
         self.text_jogar = menu_font.render('Jogar', True, (0, 0, 0))
         self.rect_sair = pg.Rect(180, 550, 300, 125)
         self.text_sair = menu_font.render('Sair', True, (0, 0, 0))
 
-    # def cleanup(self):
-
-    # def startup(self):
 
     def handle_events(self, event):
         if event.type == pg.QUIT:
@@ -27,6 +24,12 @@ class Menu(State):
                 self.done = True
             elif self.rect_sair.collidepoint(mouse_pos):
                 self.quit = True
+    
+    def handle_collisions(self):
+        pass
+
+    def handle_keys(self, keys):
+        pass
 
     def update(self, screen):
         self.draw(screen)

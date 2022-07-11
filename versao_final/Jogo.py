@@ -29,9 +29,9 @@ class Control:
         # Função que troca de estado atual para proximo estado
         self.state.done = False
         previous,self.state_name = self.state_name, self.state.next
-        self.state.cleanup() # talvez usar
+        #self.state.cleanup() # talvez usar
         self.state = self.state_dict[self.state_name]
-        self.state.startup() # talvez usar
+        #self.state.startup() # talvez usar
         self.state.previous = previous
 
     def update(self):

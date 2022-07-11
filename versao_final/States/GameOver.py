@@ -1,11 +1,11 @@
 import pygame as pg
-from States.State import State
+from States.AbstractState import AbstractState
 
 
 
-class GameOver(State):
+class GameOver(AbstractState):
     def __init__(self, menu_font):
-        State.__init__(self)
+        super().__init__()
 
         self.rect_tentatNovamente = pg.Rect(750, 430, 300, 225)
         self.text_tentarNovamente = menu_font.render('Tentar Novamente', True, (0, 0, 0))
@@ -28,6 +28,12 @@ class GameOver(State):
             elif self.rect_menu.collidepoint(mouse_pos):
                 self.next = 'menu'
                 self.done = True
+
+    def handle_collisions(self):
+        pass
+
+    def handle_keys(self, keys):
+        pass
 
     def update(self, screen):
         self.draw(screen)

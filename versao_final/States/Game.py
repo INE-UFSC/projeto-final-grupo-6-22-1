@@ -1,5 +1,5 @@
 import pygame as pg
-from States.State import State
+from States.AbstractState import AbstractState
 from Sprites.Player import Player
 
 
@@ -21,9 +21,9 @@ class Room(object):
         Carrega a sala, entry point indica de que direção o player veio
         """
 
-class Game(State):
+class Game(AbstractState):
     def __init__(self):
-        State.__init__(self)
+        super().__init__()
 
         self.player_sprite_group = pg.sprite.GroupSingle()
         self.attack_sprite_group = pg.sprite.Group()
@@ -31,9 +31,6 @@ class Game(State):
 
         self.current_room = Room()
 
-    # def cleanup(self):
-
-    # def startup(self):
 
     def handle_events(self, event):
         if event.type == pg.QUIT:
