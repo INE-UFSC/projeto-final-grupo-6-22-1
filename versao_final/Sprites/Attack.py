@@ -1,34 +1,26 @@
 import pygame as pg
-from get_image import get_image #temporario?
+from Sprites.Entity import Entity
 
-class Attack(pg.sprite.Sprite):
-    def __init__(self, attacker_pos, direction, format, damage, damages_player, time_spawned):
+class Attack(Entity):
+    def __init__(self, start_pos, direction, damage, damages_player, time_spawned, image_folder="attacks", image_name="triangulo.png", image_size=(300, 140),):
         # Inicialização
-        pg.sprite.Sprite.__init__(self)
+        super().__init__(start_pos, image_folder, image_name, image_size)
 
         if direction == 'up':
             angle = 180
-            attack_pos = (attacker_pos[0], attacker_pos[1]-80)
+            attack_pos = (start_pos[0], start_pos[1]-80)
         
         elif direction == 'down':
             angle = 0
-            attack_pos = (attacker_pos[0], attacker_pos[1]+80)
+            attack_pos = (start_pos[0], start_pos[1]+80)
 
         elif direction == 'left':
             angle = 270
-            attack_pos = (attacker_pos[0]-60, attacker_pos[1])
+            attack_pos = (start_pos[0]-60, start_pos[1])
 
         elif direction == 'right':
             angle = 90
-            attack_pos = (attacker_pos[0]+60, attacker_pos[1])
-
-
-        if format=='vertical_pipe':
-            self.image = pg.transform.smoothscale(get_image("attacks", "quadrado.png"), (40, 80))
-
-        elif format=='triangular':
-            self.image = pg.transform.smoothscale(get_image("attacks", "triangulo.png"), (300, 140))
-
+            attack_pos = (start_pos[0]+60, start_pos[1])
 
         self.image = pg.transform.rotate(self.image, angle)
         self.rect = self.image.get_rect()

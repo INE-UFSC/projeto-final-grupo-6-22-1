@@ -1,28 +1,21 @@
 import pygame as pg
-from get_image import get_image #temporario?
+
+from Sprites.Entity import Entity
 from Sprites.Attack import Attack
 
 TAMANHO_PERSONAGEM = (28, 78)
 
-class Player(pg.sprite.Sprite):
+class Player(Entity):
     """
     Classe do jogador
     """
 
-    def __init__(self, start_pos = (0, 0)):
+    def __init__(self, start_pos = (0, 0), image_folder = "player", image_name = "quadrado.png", image_size = TAMANHO_PERSONAGEM):
         """
         Spawna um jogador na coordenada x,y
         """
         # Inicialização
-        pg.sprite.Sprite.__init__(self)
-
-        self.image = pg.transform.smoothscale(get_image("player", "quadrado.png"), TAMANHO_PERSONAGEM)
-
-        self.rect = self.image.get_rect()
-        self.mask = pg.mask.from_surface(self.image)
-
-        # Coordenadas iniciais
-        self.rect.centerx, self.rect.centery = start_pos
+        super().__init__(start_pos, image_folder, image_name, image_size)
 
         self.health = 300
 
@@ -40,7 +33,7 @@ class Player(pg.sprite.Sprite):
         """
         Ataca na direção informada e retorna ataque
         """
-        attk = Attack(attacker_pos=self.rect.center, direction=direct, format='triangular', damage=1,damages_player=False, time_spawned=300)
+        attk = Attack(start_pos=self.rect.center, direction=direct, damage=1,damages_player=False, time_spawned=300)
         self.in_cooldown = True
         self.last_shot_time = pg.time.get_ticks()
         return attk
