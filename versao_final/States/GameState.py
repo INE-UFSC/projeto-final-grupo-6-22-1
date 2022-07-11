@@ -3,7 +3,7 @@ from States.AbstractState import AbstractState
 from Sprites.Player import Player
 from Rooms.RoomController import RoomController
 
-class Game(AbstractState):
+class GameState(AbstractState):
     def __init__(self):
         super().__init__()
 

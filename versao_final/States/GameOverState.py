@@ -3,7 +3,7 @@ from States.AbstractState import AbstractState
 
 
 
-class GameOver(AbstractState):
+class GameOverState(AbstractState):
     def __init__(self, menu_font):
         super().__init__()
 

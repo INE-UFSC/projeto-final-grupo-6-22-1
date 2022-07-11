@@ -1,9 +1,9 @@
 import pygame as pg
 import sys
 
-from States.Game import Game
-from States.Menu import Menu
-from States.GameOver import GameOver
+from States.GameState import GameState
+from States.MenuState import MenuState
+from States.GameOverState import GameOverState
 
 TAMANHO_TELA = (1280, 720)
 
@@ -64,9 +64,9 @@ class Control:
    
 jogo = Control()
 state_dict = {
-    'menu': Menu(menu_font),
-    'game': Game(),
-    'game_over': GameOver(menu_font),
+    'menu': MenuState(menu_font),
+    'game': GameState(),
+    'game_over': GameOverState(menu_font),
     #win
 }
 jogo.setup_states(state_dict, 'game_over')

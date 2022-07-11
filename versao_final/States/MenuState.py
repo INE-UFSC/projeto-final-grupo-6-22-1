@@ -3,7 +3,7 @@ from States.AbstractState import AbstractState
 
 
 
-class Menu(AbstractState):
+class MenuState(AbstractState):
     def __init__(self, menu_font):
         super().__init__()
 
