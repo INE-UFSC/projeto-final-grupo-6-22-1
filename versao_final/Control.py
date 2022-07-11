@@ -5,12 +5,7 @@ from States.GameState import GameState
 from States.MenuState import MenuState
 from States.GameOverState import GameOverState
 
-TAMANHO_TELA = (1280, 720)
 
-
-pg.init()
-
-menu_font = pg.font.Font(pg.font.get_default_font(), 90)
 
 class Control:
     def __init__(self):
@@ -19,6 +14,22 @@ class Control:
         self.screen = pg.display.set_mode((1280, 720))
         self.screen_rect = self.screen.get_rect()
         self.clock = pg.time.Clock()
+
+        
+
+    def init(self):
+        pg.init()
+        self.menu_font = pg.font.Font(pg.font.get_default_font(), 90)
+        self.state_dict = {
+        'menu': MenuState(self.menu_font),
+        'game': GameState(),
+        'game_over': GameOverState(self.menu_font),
+        #win
+        }
+        self.setup_states(self.state_dict, 'menu')
+        self.main_game_loop()
+        pg.quit()
+        sys.exit()
 
     def setup_states(self, state_dict, start_state):
         self.state_dict = state_dict
@@ -60,17 +71,3 @@ class Control:
             self.get_keys()
             self.update()
             pg.display.update()
-
-   
-jogo = Control()
-state_dict = {
-    'menu': MenuState(menu_font),
-    'game': GameState(),
-    'game_over': GameOverState(menu_font),
-    #win
-}
-jogo.setup_states(state_dict, 'game_over')
-jogo.main_game_loop()
-
-pg.quit()
-sys.exit()
