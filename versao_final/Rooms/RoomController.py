@@ -11,7 +11,10 @@ class RoomController():
         self.current_room.draw_art(screen)
 
     def change_room(self, room_index):
+        self.current_room.unload()
         self.current_room = self.rooms[room_index]
-        self.current_room.load(self)
-        self.current_room.start_walls()
+
+        return self.current_room.load((1,1))
+        #self.room_entities.add(self.current_room.start_walls())
+        
     

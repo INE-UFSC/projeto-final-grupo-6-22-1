@@ -9,7 +9,14 @@ class GameState(AbstractState):
 
         self.player_sprite_group = pg.sprite.GroupSingle()
         self.attack_sprite_group = pg.sprite.Group()
+
         self.player_sprite_group.add(Player(start_pos=(200, 200)))
+
+        self.room_entities_sprite_group = pg.sprite.Group()
+        self.enemies_sprite_group = pg.sprite.Group()
+        self.objects_sprite_group = pg.sprite.Group()
+        self.walls_sprite_group = pg.sprite.Group()
+
 
         self.room_controller = RoomController()
 
@@ -44,10 +51,16 @@ class GameState(AbstractState):
         super().handle_keys(keys)
 
         if keys[pg.K_LEFT]:
-            self.room_controller.change_room(0)
+            self.change_room(0)
 
         if keys[pg.K_RIGHT]:
-            self.room_controller.change_room(1)
+            self.change_room(1)
+        
+        if keys[pg.K_UP]:
+            print(self.room_entities_sprite_group.sprites())
+
+        if keys[pg.K_DOWN]:
+            self.room_entities_sprite_group.empty()
 
         #movimento player_sprite_group
         if keys[pg.K_w]:
@@ -80,9 +93,16 @@ class GameState(AbstractState):
             elif difference_pos[0] < 0 and abs(difference_pos[0]) > abs(difference_pos[1]):
                 self.attack_sprite_group.add(self.player_sprite_group.sprite.attack('right'))
 
+    def change_room(self, room_index):
+        self.room_entities_sprite_group.empty()
+        entities = self.room_controller.change_room(room_index)
+        for entity_group in entities.values():
+            self.room_entities_sprite_group.add(entity_group)
+
     def update(self, screen):
         self.attack_sprite_group.update()
         self.player_sprite_group.update()
+        self.room_entities_sprite_group.update()
         self.draw(screen)
 
     def draw(self, screen):
@@ -94,3 +114,5 @@ class GameState(AbstractState):
         self.attack_sprite_group.draw(screen)
 
         self.player_sprite_group.draw(screen)
+
+        self.room_entities_sprite_group.draw(screen)

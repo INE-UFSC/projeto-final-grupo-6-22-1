@@ -1,5 +1,5 @@
-import pygame as pg
 from Rooms.AbstractRoom import AbstractRoom
+from Sprites.Enemies.Enemy import Enemy
 
 class Room1(AbstractRoom):
     def __init__(self):
@@ -12,10 +12,8 @@ class Room1(AbstractRoom):
         pass
     
     def load(self, entry_point):
-        pass
-
-    def unload(self):
-        pass
+        self.entities['enemies'].append(Enemy((500, 500)))
+        return self.entities
 
     def start_walls(self):
         pass

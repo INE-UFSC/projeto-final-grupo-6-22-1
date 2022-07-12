@@ -23,3 +23,9 @@ class Entity(pg.sprite.Sprite):
         Atualiza a sprite
         """
         pass
+
+    def damage_taken(self, damage):
+        """
+        Recebe dano
+        """
+        pass

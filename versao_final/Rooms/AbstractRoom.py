@@ -3,6 +3,7 @@ from abc import ABC, abstractmethod
 class AbstractRoom(ABC):
     def __init__(self):
         self.visited = False
+        self.entities = {'enemies': [], 'objects': [], 'walls': []}
     
     @abstractmethod
     def draw_background(self, screen):
@@ -16,9 +17,10 @@ class AbstractRoom(ABC):
     def load(self, entry_point):
         pass
 
-    @abstractmethod
     def unload(self):
-        pass
+        self.entities['enemies'].clear()
+        self.entities['objects'].clear()
+        self.entities['walls'].clear()
 
     @abstractmethod
     def start_walls(self):
