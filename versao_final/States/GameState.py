@@ -2,6 +2,7 @@ import pygame as pg
 from States.AbstractState import AbstractState
 from Sprites.Player import Player
 from Rooms.RoomController import RoomController
+from Sprites.Objects.Objeto import Objeto
 
 class GameState(AbstractState):
     def __init__(self):
@@ -10,12 +11,18 @@ class GameState(AbstractState):
         self.player_sprite_group = pg.sprite.GroupSingle()
         self.attack_sprite_group = pg.sprite.Group()
 
-        self.player_sprite_group.add(Player(start_pos=(200, 200)))
+        self.player_sprite_group.add(Player(start_pos=(500, 500)))
+
 
         self.room_entities_sprite_group = pg.sprite.Group()
         self.enemies_sprite_group = pg.sprite.Group()
         self.objects_sprite_group = pg.sprite.Group()
+        self.objeto_sprite_group = pg.sprite.Group()
+        self.objeto_sprite_group.add(Objeto(start_pos=(200, 300)))
         self.walls_sprite_group = pg.sprite.Group()
+
+
+        
 
 
         self.room_controller = RoomController()
@@ -36,6 +43,10 @@ class GameState(AbstractState):
             if self.player_sprite_group.sprite.health <= 0:
                 self.next = "game_over"
                 self.done = True
+        
+        for objeto_colission in pg.sprite.spritecollide(self.player_sprite_group.sprite, self.objeto_sprite_group, True, pg.sprite.collide_mask):
+            #self.objeto_sprite_group.sprite.colidir(objeto_colission)
+            objeto_colission.colidir(self.player_sprite_group.sprite)
 
         #colisao player_sprite_group parede
 
@@ -102,6 +113,7 @@ class GameState(AbstractState):
     def update(self, screen):
         self.attack_sprite_group.update()
         self.player_sprite_group.update()
+        self.objeto_sprite_group.update()
         self.room_entities_sprite_group.update()
         self.draw(screen)
 
@@ -116,3 +128,4 @@ class GameState(AbstractState):
         self.player_sprite_group.draw(screen)
 
         self.room_entities_sprite_group.draw(screen)
+        self.objeto_sprite_group.draw(screen)

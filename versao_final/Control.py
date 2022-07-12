@@ -3,6 +3,7 @@ import sys
 
 from States.GameState import GameState
 from States.MenuState import MenuState
+from States.WinState import WinState
 from States.GameOverState import GameOverState
 
 
@@ -19,12 +20,12 @@ class Control:
 
     def init(self):
         pg.init()
-        self.menu_font = pg.font.Font(pg.font.get_default_font(), 90)
+        self.menu_font = pg.font.Font(pg.font.get_default_font(), 30)
         self.state_dict = {
         'menu': MenuState(self.menu_font),
         'game': GameState(),
         'game_over': GameOverState(self.menu_font),
-        #win
+        'win': WinState(self.menu_font)
         }
         self.setup_states(self.state_dict, 'menu')
         self.main_game_loop()

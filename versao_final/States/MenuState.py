@@ -37,6 +37,6 @@ class MenuState(AbstractState):
     def draw(self, screen):
         screen.fill((119, 221, 119))
 
-        screen.blit(self.text_jogar, dest=(200, 450))
+        screen.blit(self.text_jogar, dest=(200, 500))
     
         screen.blit(self.text_sair, dest=(200, 570))
