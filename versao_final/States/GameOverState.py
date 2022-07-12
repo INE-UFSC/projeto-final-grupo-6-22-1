@@ -1,17 +1,19 @@
 import pygame as pg
 from States.AbstractState import AbstractState
+from get_image import get_image
 
 
 
 class GameOverState(AbstractState):
     def __init__(self, menu_font):
         super().__init__()
-
-        self.rect_tentatNovamente = pg.Rect(450, 320, 300, 25)
-        self.text_tentarNovamente = menu_font.render('Tentar Novamente', True, (0, 0, 0)) 
-        self.rect_menu = pg.Rect(550, 370, 300, 125)
-        self.text_menu = menu_font.render('Menu', True, (0, 0, 0))
-        self.text_gameOver = menu_font.render('GAME OVER', True, (0, 0, 0))
+        self.background = get_image('Telas', 'TelaGameOver.png')
+        self.background = pg.transform.smoothscale(self.background, (1280, 700))
+        self.rect_tentatNovamente = pg.Rect(310, 320, 648, 80)
+        #self.text_tentarNovamente = menu_font.render('Tentar Novamente', True, (0, 0, 0)) 
+        self.rect_menu = pg.Rect(490, 423, 230, 80)
+        #self.text_menu = menu_font.render('Menu', True, (0, 0, 0))
+        #self.text_gameOver = menu_font.render('GAME OVER', True, (0, 0, 0))
 
 
     def handle_events(self, event):
@@ -37,10 +39,11 @@ class GameOverState(AbstractState):
         self.draw(screen)
 
     def draw(self, screen):
-        screen.fill((88, 79, 77))
+        screen.blit(self.background, dest=(0, 0))
+        #screen.fill((88, 79, 77))
 
-        screen.blit(self.text_tentarNovamente, dest=(450, 320))
+        #pg.draw.rect(screen, (255, 255, 255), self.rect_tentatNovamente)
     
-        screen.blit(self.text_menu, dest=(550, 370))
+        #screen.blit(self.text_menu, dest=(550, 370))
 
-        screen.blit(self.text_gameOver, dest=(500, 125))
+        #screen.blit(self.text_gameOver, dest=(500, 125))

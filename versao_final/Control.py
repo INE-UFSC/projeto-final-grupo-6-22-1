@@ -27,7 +27,7 @@ class Control:
         'game_over': GameOverState(self.menu_font),
         'win': WinState(self.menu_font)
         }
-        self.setup_states(self.state_dict, 'menu')
+        self.setup_states(self.state_dict, 'win')
         self.main_game_loop()
         pg.quit()
         sys.exit()

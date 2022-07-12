@@ -1,16 +1,19 @@
 import pygame as pg
 from States.AbstractState import AbstractState
+from get_image import get_image
 
-
+TAMANHO_TELA = (1280, 720)
 
 class MenuState(AbstractState):
-    def __init__(self, menu_font):
+    def __init__(self, menu_font, image_folder = "player", image_name = "quadrado.png", image_size = TAMANHO_TELA):
         super().__init__()
 
-        self.rect_jogar = pg.Rect(180, 430, 300, 125)
-        self.text_jogar = menu_font.render('Jogar', True, (0, 0, 0))
-        self.rect_sair = pg.Rect(180, 550, 300, 125)
-        self.text_sair = menu_font.render('Sair', True, (0, 0, 0))
+        self.background = get_image('Telas', 'TelaMenu.png')
+        self.background = pg.transform.smoothscale(self.background, (1280, 700))
+        self.rect_jogar = pg.Rect(80, 475, 250, 60)
+       # self.text_jogar = menu_font.render('Jogar', True, (0, 0, 0))
+        self.rect_sair = pg.Rect(80, 635, 190, 60)
+       # self.text_sair = menu_font.render('Sair', True, (0, 0, 0))
 
 
     def handle_events(self, event):
@@ -35,8 +38,9 @@ class MenuState(AbstractState):
         self.draw(screen)
 
     def draw(self, screen):
-        screen.fill((119, 221, 119))
+        screen.blit(self.background, dest=(0, 0))
+        #pg.draw.rect(screen, (255, 255, 255), self.rect_sair)
 
-        screen.blit(self.text_jogar, dest=(200, 500))
+        #screen.blit(self.text_jogar, dest=(200, 500))
     
-        screen.blit(self.text_sair, dest=(200, 570))
+#        screen.blit(self.text_sair, dest=(200, 570))

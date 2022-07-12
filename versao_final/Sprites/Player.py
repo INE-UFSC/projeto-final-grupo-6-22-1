@@ -17,7 +17,7 @@ class Player(Entity):
         # Inicialização
         super().__init__(start_pos, image_folder, image_name, image_size)
 
-        self.health = 300
+        self.health = 2
 
         self.in_cooldown = False
         self.last_shot_time = 0
