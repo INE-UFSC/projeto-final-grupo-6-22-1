@@ -3,14 +3,14 @@ import pygame as pg
 from Sprites.Entity import Entity
 from Sprites.Attack import Attack
 
-TAMANHO_PERSONAGEM = (28, 78)
+TAMANHO_PERSONAGEM = (48, 78)
 
 class Player(Entity):
     """
     Classe do jogador
     """
 
-    def __init__(self, start_pos = (0, 0), image_folder = "player", image_name = "quadrado.png", image_size = TAMANHO_PERSONAGEM):
+    def __init__(self, start_pos = (0, 0), image_folder = "player", image_name = "Jogador.png", image_size = TAMANHO_PERSONAGEM):
         """
         Spawna um jogador na coordenada x,y
         """

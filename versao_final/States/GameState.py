@@ -1,8 +1,9 @@
 import pygame as pg
+from Rooms.Room2 import Room2
 from States.AbstractState import AbstractState
 from Sprites.Player import Player
 from Rooms.RoomController import RoomController
-from Sprites.Objects.Objeto import Objeto
+from Sprites.Objects.Door import Door
 
 class GameState(AbstractState):
     def __init__(self):
@@ -17,9 +18,8 @@ class GameState(AbstractState):
         self.room_entities_sprite_group = pg.sprite.Group()
         self.enemies_sprite_group = pg.sprite.Group()
         self.objects_sprite_group = pg.sprite.Group()
-        self.objeto_sprite_group = pg.sprite.Group()
-        self.objeto_sprite_group.add(Objeto(start_pos=(200, 300)))
         self.walls_sprite_group = pg.sprite.Group()
+        self.door_sprite_group = pg.sprite.Group()
 
 
         
@@ -43,10 +43,15 @@ class GameState(AbstractState):
             if self.player_sprite_group.sprite.health <= 0:
                 self.next = "game_over"
                 self.done = True
-        
-        for objeto_colission in pg.sprite.spritecollide(self.player_sprite_group.sprite, self.objeto_sprite_group, True, pg.sprite.collide_mask):
-            #self.objeto_sprite_group.sprite.colidir(objeto_colission)
-            objeto_colission.colidir(self.player_sprite_group.sprite)
+
+
+        #colisão da porta
+        for door_colission in pg.sprite.spritecollide(self.player_sprite_group.sprite, self.door_sprite_group, True, pg.sprite.collide_mask):
+            self.change_room(Room2)
+            break
+
+
+
 
         #colisao player_sprite_group parede
 
@@ -86,6 +91,16 @@ class GameState(AbstractState):
         elif keys[pg.K_d]:
             self.player_sprite_group.sprite.rect.move_ip((3, 0))
 
+        if keys[pg.K_SPACE]:
+            print(self.player_sprite_group.sprite.rect.center)
+            print(self.door_sprite_group.sprites())
+            for door in self.door_sprite_group.sprites():
+                if door.colidir(self.player_sprite_group.sprite):
+                    self.change_room(Room2)
+                    break
+
+        
+
         #ataque player_sprite_group
         if pg.mouse.get_pressed()[0] and not self.player_sprite_group.sprite.in_cooldown:
             mouse_pos = pg.mouse.get_pos()
@@ -113,7 +128,6 @@ class GameState(AbstractState):
     def update(self, screen):
         self.attack_sprite_group.update()
         self.player_sprite_group.update()
-        self.objeto_sprite_group.update()
         self.room_entities_sprite_group.update()
         self.draw(screen)
 
@@ -128,4 +142,3 @@ class GameState(AbstractState):
         self.player_sprite_group.draw(screen)
 
         self.room_entities_sprite_group.draw(screen)
-        self.objeto_sprite_group.draw(screen)
