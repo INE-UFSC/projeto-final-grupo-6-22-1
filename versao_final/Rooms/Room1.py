@@ -3,8 +3,9 @@ from States.AbstractState import AbstractState
 from get_image import get_image
 from Rooms.AbstractRoom import AbstractRoom
 from Sprites.Enemies.Enemy import Enemy
-from Sprites.Objects.Quadrilatero import Wardrobe
+from Sprites.Objects.Wardrobe import Wardrobe
 from Sprites.Objects.Door import Door
+from Sprites.Objects.Piano import Piano
 
 class Room1(AbstractRoom):
     def __init__(self):
@@ -23,6 +24,7 @@ class Room1(AbstractRoom):
     def load(self, entry_point):
         self.entities['enemies'].append(Enemy((700, 500)))
         self.entities['objects'].append(Wardrobe((800, 310)))
+        self.entities['objects'].append(Piano((520, 329)))
         self.entities['objects'].append(Door((300, 287)))
         return self.entities
 
@@ -30,7 +32,7 @@ class Room1(AbstractRoom):
         pass
 
 
-        #tentativa de fazer uma maneijra de mudar de tela
+        #tentativa de fazer uma maneira de mudar de tela
 
     def handle_events(self, event):
         if event.type == pg.QUIT:
@@ -45,6 +47,6 @@ class Room1(AbstractRoom):
 
 
     def draw(self, screen):
-        screen.blit(self.background, dest=(0, 0))
-        pg.draw.rect(screen, (255, 255, 255), self.rect_sair)
+        self.draw_background(screen)
+        pg.draw.rect(screen, (255, 255, 255), self.rect_mudarSala)
 

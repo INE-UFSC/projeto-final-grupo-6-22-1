@@ -1,3 +1,4 @@
+from turtle import distance
 import pygame as pg
 from Rooms.Room2 import Room2
 from States.AbstractState import AbstractState
@@ -67,7 +68,7 @@ class GameState(AbstractState):
         super().handle_keys(keys)
 
         if keys[pg.K_LEFT]:
-            self.change_room(0)
+            self.change_room(2)
 
         if keys[pg.K_RIGHT]:
             self.change_room(1)
@@ -90,16 +91,6 @@ class GameState(AbstractState):
         
         elif keys[pg.K_d]:
             self.player_sprite_group.sprite.rect.move_ip((3, 0))
-
-        if keys[pg.K_SPACE]:
-            print(self.player_sprite_group.sprite.rect.center)
-            print(self.door_sprite_group.sprites())
-            for door in self.door_sprite_group.sprites():
-                if door.colidir(self.player_sprite_group.sprite):
-                    self.change_room(Room2)
-                    break
-
-        
 
         #ataque player_sprite_group
         if pg.mouse.get_pressed()[0] and not self.player_sprite_group.sprite.in_cooldown:

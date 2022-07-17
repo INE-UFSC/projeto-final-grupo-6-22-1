@@ -3,7 +3,7 @@ from States.AbstractState import AbstractState
 from get_image import get_image
 from Rooms.AbstractRoom import AbstractRoom
 from Sprites.Enemies.Enemy import Enemy
-from Sprites.Objects.Quadrilatero import Wardrobe
+from Sprites.Objects.Wardrobe import Wardrobe
 from Sprites.Objects.Door import Door
 
 class Room2(AbstractRoom):
