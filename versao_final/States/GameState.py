@@ -51,6 +51,9 @@ class GameState(AbstractState):
             self.change_room(Room2)
             break
 
+        #colisão com paredes jogador
+        if pg.sprite.spritecollide(self.player_sprite_group.sprite, self.walls_sprite_group, False):
+            self.player_sprite_group.sprite.rect.center = self.player_sprite_group.sprite.last_pos
 
 
 
@@ -84,16 +87,20 @@ class GameState(AbstractState):
 
         #movimento player_sprite_group
         if keys[pg.K_w]:
-            self.player_sprite_group.sprite.rect.move_ip((0, -3))
+            # self.player_sprite_group.sprite.rect.move_ip((0, -3))
+            self.player_sprite_group.sprite.change_y -= 3
         
-        elif keys[pg.K_s]:
-            self.player_sprite_group.sprite.rect.move_ip((0, 3))
+        if keys[pg.K_s]:
+            # self.player_sprite_group.sprite.rect.move_ip((0, 3))
+            self.player_sprite_group.sprite.change_y += 3
         
-        elif keys[pg.K_a]:
-            self.player_sprite_group.sprite.rect.move_ip((-3, 0))
+        if keys[pg.K_a]:
+            # self.player_sprite_group.sprite.rect.move_ip((-3, 0))
+            self.player_sprite_group.sprite.change_x -= 3
         
-        elif keys[pg.K_d]:
-            self.player_sprite_group.sprite.rect.move_ip((3, 0))
+        if keys[pg.K_d]:
+            # self.player_sprite_group.sprite.rect.move_ip((3, 0))
+            self.player_sprite_group.sprite.change_x += 3
 
         #ataque player_sprite_group
         if pg.mouse.get_pressed()[0] and not self.player_sprite_group.sprite.in_cooldown:
@@ -135,6 +142,11 @@ class GameState(AbstractState):
         self.attack_sprite_group.update()
         self.player_sprite_group.update()
         self.room_entities_sprite_group.update()
+        
+        self.player_sprite_group.sprite.last_pos = self.player_sprite_group.sprite.rect.center
+        self.player_sprite_group.sprite.rect.move_ip(self.player_sprite_group.sprite.change_x, self.player_sprite_group.sprite.change_y)
+        self.player_sprite_group.sprite.change_x = 0
+        self.player_sprite_group.sprite.change_y = 0
 
         # for enemy in self.enemies_sprite_group:
         #     enemy.moveAI()

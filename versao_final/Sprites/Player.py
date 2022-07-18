@@ -19,6 +19,11 @@ class Player(Entity):
 
         self.health = 2
 
+        self.change_x = 0
+        self.change_y = 0
+
+        self.last_pos = start_pos
+
         self.in_cooldown = False
         self.last_shot_time = 0
 
