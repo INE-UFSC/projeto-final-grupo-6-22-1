@@ -11,11 +11,12 @@ class Room1(AbstractRoom):
     def __init__(self):
         super().__init__()
         self.rect_mudarSala = pg.Rect(60, 100, 300, 287) #apagar isso também
+        self.background = get_image('Telas', 'Tela.png')
+        self.background = pg.transform.smoothscale(self.background, (1280, 700))
         
     def draw_background(self, screen):
         #screen.fill((255, 255, 255))
-        self.background = get_image('Telas', 'Tela.png')
-        self.background = pg.transform.smoothscale(self.background, (1280, 700))
+        
         screen.blit(self.background, dest=(0, 0))
 
     def draw_art(self, screen):

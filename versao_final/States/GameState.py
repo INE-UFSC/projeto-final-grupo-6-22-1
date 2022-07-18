@@ -67,11 +67,14 @@ class GameState(AbstractState):
     def handle_keys(self, keys):
         super().handle_keys(keys)
 
-        if keys[pg.K_LEFT]:
-            self.change_room(2)
+        if keys[pg.K_1]:
+            self.change_room(0)
 
-        if keys[pg.K_RIGHT]:
+        if keys[pg.K_2]:
             self.change_room(1)
+
+        if keys[pg.K_3]:
+            self.change_room(2)
         
         if keys[pg.K_UP]:
             print(self.room_entities_sprite_group.sprites())
@@ -95,6 +98,7 @@ class GameState(AbstractState):
         #ataque player_sprite_group
         if pg.mouse.get_pressed()[0] and not self.player_sprite_group.sprite.in_cooldown:
             mouse_pos = pg.mouse.get_pos()
+            print(mouse_pos)
             player_pos = self.player_sprite_group.sprite.rect.center
             difference_pos = (player_pos[0] - mouse_pos[0], player_pos[1] - mouse_pos[1])
 
@@ -111,25 +115,47 @@ class GameState(AbstractState):
                 self.attack_sprite_group.add(self.player_sprite_group.sprite.attack('right'))
 
     def change_room(self, room_index):
-        self.room_entities_sprite_group.empty()
+        # Mata as entidades da sala atual
+        for sprite in self.room_entities_sprite_group:
+            sprite.kill()
+
+        # Troca de sala e recebe novas entidades
         entities = self.room_controller.change_room(room_index)
+
+        # Adiciona entidades da sala no grupo de entidades
         for entity_group in entities.values():
             self.room_entities_sprite_group.add(entity_group)
+
+        # Adiciona as entidades em seus grupos respectivos
+        self.enemies_sprite_group.add(entities['enemies'])
+        self.objects_sprite_group.add(entities['objects'])
+        self.walls_sprite_group.add(entities['walls'])
 
     def update(self, screen):
         self.attack_sprite_group.update()
         self.player_sprite_group.update()
         self.room_entities_sprite_group.update()
+
+        # for enemy in self.enemies_sprite_group:
+        #     enemy.moveAI()
+
         self.draw(screen)
 
     def draw(self, screen):
 
         self.room_controller.draw(screen)
 
-        pg.draw.rect(screen, (99, 23, 23), pg.Rect(0, 0, 1280, 180)) #HUD
+        for sprite in self.walls_sprite_group: #debug para ver as paredes
+            pg.draw.rect(screen, (255, 255, 255), sprite.rect)
 
         self.attack_sprite_group.draw(screen)
 
         self.player_sprite_group.draw(screen)
 
-        self.room_entities_sprite_group.draw(screen)
+        self.enemies_sprite_group.draw(screen)
+
+        self.objects_sprite_group.draw(screen)
+
+        pg.draw.rect(screen, (99, 23, 23), pg.Rect(0, 0, 1280, 180)) #HUD
+
+
