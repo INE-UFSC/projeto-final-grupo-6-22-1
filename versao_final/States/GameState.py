@@ -38,8 +38,9 @@ class GameState(AbstractState):
                 self.quit = True
 
     def handle_collisions(self):
-        for attack_colission in pg.sprite.spritecollide(self.player_sprite_group.sprite, self.attack_sprite_group, True, pg.sprite.collide_mask):
-            self.player_sprite_group.sprite.damage_taken(damage = attack_colission.damage)
+        for attack_colission in pg.sprite.spritecollide(self.player_sprite_group.sprite, self.attack_sprite_group, False, pg.sprite.collide_mask):
+            if attack_colission.damages_player:
+                self.player_sprite_group.sprite.damage_taken(damage = attack_colission.damage)
 
             if self.player_sprite_group.sprite.health <= 0:
                 self.next = "game_over"
@@ -58,9 +59,21 @@ class GameState(AbstractState):
 
 
         #colisao player_sprite_group inimigo
+        for enemy_colission in pg.sprite.spritecollide(self.player_sprite_group.sprite, self.enemies_sprite_group, False, pg.sprite.collide_mask):
+            self.player_sprite_group.sprite.damage_taken(damage = enemy_colission.damage)
 
+            if self.player_sprite_group.sprite.health <= 0:
+                self.next = "game_over"
+                self.done = True
 
         # colisao inimigo ataque
+        for attack in self.attack_sprite_group:
+            for enemy in pg.sprite.spritecollide(attack, self.enemies_sprite_group, False, pg.sprite.collide_mask):
+                enemy.damage_taken(damage = attack.damage)
+                #attack.hit()
+
+
+
 
         #colisao player_sprite_group porta
 

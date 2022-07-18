@@ -2,7 +2,7 @@ import pygame as pg
 from Sprites.Entity import Entity
 
 class Attack(Entity):
-    def __init__(self, start_pos, direction, damage, damages_player, time_spawned, image_folder="attacks", image_name="triangulo.png", image_size=(300, 140),):
+    def __init__(self, start_pos, direction, damage, damages_player, time_spawned, image_folder="attacks", image_name="quadrado.png", image_size=(20, 100),):
         # Inicialização
         super().__init__(start_pos, image_folder, image_name, image_size)
 
@@ -37,3 +37,6 @@ class Attack(Entity):
     def update(self):
         if pg.time.get_ticks() - self.time >= self.time_spawned:
             self.kill()
+
+    def hit(self):
+        self.kill()

@@ -1,8 +1,7 @@
 import pygame as pg
-from States.AbstractState import AbstractState
 from get_image import get_image
 from Rooms.AbstractRoom import AbstractRoom
-from Sprites.Enemies.Enemy import Enemy
+from Sprites.Enemies.Zombie import Zombie
 from Sprites.Objects.Wardrobe import Wardrobe4
 from Sprites.Objects.Door import Door
 from Sprites.Objects.Bed import Bed
@@ -27,10 +26,10 @@ class Room3(AbstractRoom):
     def load(self, entry_point):
         self.start_walls()
 
-        self.entities['enemies'].append(Enemy((700, 500)))
-        self.entities['enemies'].append(Enemy((800, 500)))
-        self.entities['enemies'].append(Enemy((750, 570)))
-        self.entities['enemies'].append(Enemy((700, 380)))
+        self.entities['enemies'].append(Zombie((700, 500)))
+        self.entities['enemies'].append(Zombie((800, 500)))
+        self.entities['enemies'].append(Zombie((750, 570)))
+        self.entities['enemies'].append(Zombie((700, 380)))
         self.entities['objects'].append(Wardrobe4((400, 310)))
         self.entities['objects'].append(Wardrobe4((330, 310)))
         self.entities['objects'].append(Bed((520, 350)))

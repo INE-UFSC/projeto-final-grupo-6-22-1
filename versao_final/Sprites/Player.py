@@ -1,5 +1,5 @@
 import pygame as pg
-
+from copy import copy
 from Sprites.Entity import Entity
 from Sprites.Attack import Attack
 
@@ -17,6 +17,9 @@ class Player(Entity):
         # Inicialização
         super().__init__(start_pos, image_folder, image_name, image_size)
 
+        self.original_image = copy(self.image)
+
+
         self.health = 2
 
         self.change_x = 0
@@ -27,18 +30,34 @@ class Player(Entity):
         self.in_cooldown = False
         self.last_shot_time = 0
 
+        self.grace_period = 1000
+        self.immune = False
+
+        self.time_last_hit = False
+
     def update(self):
         """
         Atualiza a sprite
         """
-        if pg.time.get_ticks() - self.last_shot_time >= 800: #cooldown especifico arma
+        time = pg.time.get_ticks()
+        if time - self.last_shot_time >= 800: #cooldown especifico arma
             self.in_cooldown = False
+
+        if time - self.time_last_hit >= self.grace_period:
+            self.image = copy(self.original_image)
+            self.immune = False
+
+    def change_tint(self, color):
+        """
+        Aplica na surface a color fornecida
+        """
+        self.image.fill(color, special_flags = pg.BLEND_RGBA_MULT)
 
     def attack(self, direct):
         """
         Ataca na direção informada e retorna ataque
         """
-        attk = Attack(start_pos=self.rect.center, direction=direct, damage=1,damages_player=False, time_spawned=300)
+        attk = Attack(start_pos=self.rect.center, direction=direct, damage=1,damages_player=False, time_spawned=100)
         self.in_cooldown = True
         self.last_shot_time = pg.time.get_ticks()
         return attk
@@ -47,7 +66,14 @@ class Player(Entity):
         """
         Recebe dano
         """
-        self.health = self.health - damage
+        if not self.immune:
+            self.immune = True
+            self.time_last_hit = pg.time.get_ticks()
+
+            self.change_tint((255, 0, 0, 255))
+
+            self.health = self.health - damage
+
         print(self.health)
 
     def move_back(self):
