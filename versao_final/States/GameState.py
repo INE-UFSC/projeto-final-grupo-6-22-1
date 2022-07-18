@@ -53,11 +53,8 @@ class GameState(AbstractState):
 
         #colisão com paredes jogador
         if pg.sprite.spritecollide(self.player_sprite_group.sprite, self.walls_sprite_group, False):
-            self.player_sprite_group.sprite.rect.center = self.player_sprite_group.sprite.last_pos
+            self.player_sprite_group.sprite.move_back()
 
-
-
-        #colisao player_sprite_group parede
 
 
         #colisao player_sprite_group inimigo
@@ -143,6 +140,7 @@ class GameState(AbstractState):
         self.player_sprite_group.update()
         self.room_entities_sprite_group.update()
         
+        # Controle de movimento do jogador
         self.player_sprite_group.sprite.last_pos = self.player_sprite_group.sprite.rect.center
         self.player_sprite_group.sprite.rect.move_ip(self.player_sprite_group.sprite.change_x, self.player_sprite_group.sprite.change_y)
         self.player_sprite_group.sprite.change_x = 0

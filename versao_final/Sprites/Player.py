@@ -49,3 +49,9 @@ class Player(Entity):
         """
         self.health = self.health - damage
         print(self.health)
+
+    def move_back(self):
+        """
+        Move o jogador para a posição anterior
+        """
+        self.rect.centerx, self.rect.centery = self.last_pos
