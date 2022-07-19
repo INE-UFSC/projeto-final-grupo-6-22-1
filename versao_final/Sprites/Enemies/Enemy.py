@@ -9,6 +9,7 @@ class Enemy(Entity):
         self.original_image = copy(self.image)
 
         self.health = 2
+        self.damage = 1
 
         self.grace_period = 110
         self.immune = False
@@ -20,7 +21,9 @@ class Enemy(Entity):
         if pg.time.get_ticks() - self.time_last_hit >= self.grace_period:
             self.image = copy(self.original_image)
             self.immune = False
-        
+    
+    def ai_move(self, player_coord):
+        pass
     
     def change_tint(self, color):
         """

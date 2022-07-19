@@ -1,10 +1,11 @@
 from Rooms.Room1 import Room1
 from Rooms.Room2 import Room2
 from Rooms.Room3 import Room3
+from Rooms.Room4 import Room4
 
 class RoomController():
     def __init__(self):
-        self.rooms = [Room1(), Room2(), Room3()]
+        self.rooms = [Room1(), Room2(), Room3(), Room4()]
         self.current_room = self.rooms[0]
 
     def draw(self, screen):

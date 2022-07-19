@@ -22,7 +22,7 @@ class GameState(AbstractState):
         self.walls_sprite_group = pg.sprite.Group()
         self.door_sprite_group = pg.sprite.Group()
 
-
+        self.start_time = pg.time.get_ticks()
         
 
 
@@ -36,6 +36,11 @@ class GameState(AbstractState):
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_ESCAPE:
                 self.quit = True
+
+        if event.type == pg.USEREVENT+1:
+            if event.__dict__["enemy_name"] == "Strahd":
+                self.next = "win"
+                self.done = True
 
     def handle_collisions(self):
         for attack_colission in pg.sprite.spritecollide(self.player_sprite_group.sprite, self.attack_sprite_group, False, pg.sprite.collide_mask):
@@ -56,8 +61,11 @@ class GameState(AbstractState):
         if pg.sprite.spritecollide(self.player_sprite_group.sprite, self.walls_sprite_group, False):
             self.player_sprite_group.sprite.move_back()
 
-
-
+        #colisão morcego com parede
+        for enemy in self.enemies_sprite_group:
+            if enemy.name == "Bat":
+                for wall in pg.sprite.spritecollide(enemy, self.walls_sprite_group, False):
+                    enemy.change_direction(wall.rect)
         #colisao player_sprite_group inimigo
         for enemy_colission in pg.sprite.spritecollide(self.player_sprite_group.sprite, self.enemies_sprite_group, False, pg.sprite.collide_mask):
             self.player_sprite_group.sprite.damage_taken(damage = enemy_colission.damage)
@@ -88,6 +96,9 @@ class GameState(AbstractState):
 
         if keys[pg.K_3]:
             self.change_room(2)
+
+        if keys[pg.K_4]:
+            self.change_room(3)
         
         if keys[pg.K_UP]:
             print(self.room_entities_sprite_group.sprites())
@@ -159,8 +170,9 @@ class GameState(AbstractState):
         self.player_sprite_group.sprite.change_x = 0
         self.player_sprite_group.sprite.change_y = 0
 
-        # for enemy in self.enemies_sprite_group:
-        #     enemy.moveAI()
+        for enemy in self.enemies_sprite_group:
+            movement = enemy.ai_move(self.player_sprite_group.sprite.rect.center)
+            enemy.rect.move_ip(movement[0], movement[1])
 
         self.draw(screen)
 
@@ -171,13 +183,13 @@ class GameState(AbstractState):
         for sprite in self.walls_sprite_group: #debug para ver as paredes
             pg.draw.rect(screen, (255, 255, 255), sprite.rect)
 
+        self.objects_sprite_group.draw(screen)
+
         self.attack_sprite_group.draw(screen)
 
         self.player_sprite_group.draw(screen)
 
         self.enemies_sprite_group.draw(screen)
-
-        self.objects_sprite_group.draw(screen)
 
         pg.draw.rect(screen, (99, 23, 23), pg.Rect(0, 0, 1280, 180)) #HUD
 
