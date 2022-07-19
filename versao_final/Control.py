@@ -6,6 +6,7 @@ from States.MenuState import MenuState
 from States.WinState import WinState
 from States.GameOverState import GameOverState
 
+from Score.ScoreController import ScoreController
 
 
 class Control:
@@ -15,8 +16,8 @@ class Control:
         self.screen = pg.display.set_mode((1280, 720))
         self.screen_rect = self.screen.get_rect()
         self.clock = pg.time.Clock()
-
         
+        self.score_controller = ScoreController()
 
     def init(self):
         pg.init()
@@ -25,7 +26,7 @@ class Control:
         'menu': MenuState(self.menu_font),
         'game': GameState(),
         'game_over': GameOverState(self.menu_font),
-        'win': WinState(self.menu_font)
+        'win': WinState(self.menu_font, self.score_controller)
         }
         self.setup_states(self.state_dict, 'menu')
         self.main_game_loop()
@@ -41,11 +42,18 @@ class Control:
         # Função que troca de estado atual para proximo estado
         self.state.done = False
         previous,self.state_name = self.state_name, self.state.next
-        #self.state.cleanup() # talvez usar
+        # Finalização do estado anterior
+        
+        score = self.state.cleanup()
+
+        if score != -1:
+            self.score_controller.add_score(score)
+    
         self.state = self.state_dict[self.state_name]
-        #self.state.startup() # talvez usar
+        self.state.startup()
         self.state.previous = previous
 
+        print(self.score_controller.scoreDAO.get_all())
     def update(self):
         if self.state.quit:
             self.done = True

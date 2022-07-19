@@ -4,15 +4,18 @@ from get_image import get_image
 
 
 class WinState(AbstractState):
-    def __init__(self, menu_font):
+    def __init__(self, menu_font, score_controller):
         AbstractState.__init__(self)
 
+        self.score_controller = score_controller
         self.background = get_image('telas', 'TelaVitoria.png')
         self.background = pg.transform.smoothscale(self.background, (1280, 700))       
         #self.text_win = menu_font.render('VITÓRIA', True, (0, 0, 0))
         self.rect_menu = pg.Rect(60, 560, 500, 125)
         #self.text_menu = menu_font.render('Retornar ao menu', True, (0, 0, 0))
 
+    def startup(self):
+        print(self.score_controller.get_last_score())
 
     def handle_events(self, event):
         if event.type == pg.QUIT:

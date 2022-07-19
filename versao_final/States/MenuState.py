@@ -2,10 +2,8 @@ import pygame as pg
 from States.AbstractState import AbstractState
 from get_image import get_image
 
-TAMANHO_TELA = (1280, 720)
-
 class MenuState(AbstractState):
-    def __init__(self, menu_font, image_folder = "player", image_name = "quadrado.png", image_size = TAMANHO_TELA):
+    def __init__(self, menu_font):
         super().__init__()
 
         self.background = get_image('Telas', 'TelaMenu.png')
@@ -15,6 +13,9 @@ class MenuState(AbstractState):
         self.rect_sair = pg.Rect(80, 635, 190, 60)
        # self.text_sair = menu_font.render('Sair', True, (0, 0, 0))
 
+
+    def startup(self):
+        pass
 
     def handle_events(self, event):
         if event.type == pg.QUIT:

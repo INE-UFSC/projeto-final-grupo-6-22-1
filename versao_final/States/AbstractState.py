@@ -6,7 +6,14 @@ class AbstractState(ABC):
         self.next = None
         self.quit = False
         self.previous = None
+
+    def cleanup(self):
+        return -1
     
+    @abstractmethod
+    def startup(self):
+        pass
+
     @abstractmethod
     def handle_events(self, events):
         pass

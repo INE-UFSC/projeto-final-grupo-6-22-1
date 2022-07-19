@@ -16,6 +16,9 @@ class GameOverState(AbstractState):
         #self.text_gameOver = menu_font.render('GAME OVER', True, (0, 0, 0))
 
 
+    def startup(self):
+        pass
+
     def handle_events(self, event):
         if event.type == pg.QUIT:
             self.quit = True

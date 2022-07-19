@@ -13,7 +13,7 @@ class GameState(AbstractState):
         self.player_sprite_group = pg.sprite.GroupSingle()
         self.attack_sprite_group = pg.sprite.Group()
 
-        self.player_sprite_group.add(Player(start_pos=(500, 500)))
+
 
 
         self.room_entities_sprite_group = pg.sprite.Group()
@@ -22,12 +22,26 @@ class GameState(AbstractState):
         self.walls_sprite_group = pg.sprite.Group()
         self.door_sprite_group = pg.sprite.Group()
 
-        self.start_time = pg.time.get_ticks()
-        
-
+        self.start_time = 0
 
         self.room_controller = RoomController()
 
+    def cleanup(self):
+        for sprite in self.room_entities_sprite_group:
+            sprite.kill()
+
+        self.player_sprite_group.sprite.kill()
+
+        if self.next == "win":
+            return pg.time.get_ticks() - self.start_time
+        else:
+            return -1
+
+    def startup(self):
+        self.player_sprite_group.add(Player(start_pos=(500, 500)))
+        self.start_time = pg.time.get_ticks()
+        self.end_time = -1
+        self.change_room(0)
 
     def handle_events(self, event):
         if event.type == pg.QUIT:
@@ -61,11 +75,12 @@ class GameState(AbstractState):
         if pg.sprite.spritecollide(self.player_sprite_group.sprite, self.walls_sprite_group, False):
             self.player_sprite_group.sprite.move_back()
 
-        #colisão morcego com parede
+        #colisão inimigos
         for enemy in self.enemies_sprite_group:
-            if enemy.name == "Bat":
+            if enemy.name == "Bat": # colisão morcego com parede
                 for wall in pg.sprite.spritecollide(enemy, self.walls_sprite_group, False):
                     enemy.change_direction(wall.rect)
+                    
         #colisao player_sprite_group inimigo
         for enemy_colission in pg.sprite.spritecollide(self.player_sprite_group.sprite, self.enemies_sprite_group, False, pg.sprite.collide_mask):
             self.player_sprite_group.sprite.damage_taken(damage = enemy_colission.damage)
