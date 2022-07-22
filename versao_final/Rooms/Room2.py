@@ -6,6 +6,7 @@ from Sprites.Objects.Wardrobe import Wardrobe
 from Sprites.Objects.Door import Door
 from Sprites.Wall import Wall
 from Sprites.Enemies.Bat import Bat
+from Sprites.Enemies.Skeleton import Skeleton
 
 class Room2(AbstractRoom):
     def __init__(self):
@@ -31,6 +32,7 @@ class Room2(AbstractRoom):
         self.entities['enemies'].append(Zombie((550, 400)))
         self.entities['enemies'].append(Zombie((660, 362)))
         self.entities['enemies'].append(Bat((800, 500)))
+        self.entities['enemies'].append(Skeleton((900, 500)))
         return self.entities
 
     def start_walls(self):

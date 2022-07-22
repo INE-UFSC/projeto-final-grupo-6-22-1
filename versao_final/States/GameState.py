@@ -65,16 +65,10 @@ class GameState(AbstractState):
                 self.next = "game_over"
                 self.done = True
 
-
-        #colisão da porta
-        for door_colission in pg.sprite.spritecollide(self.player_sprite_group.sprite, self.door_sprite_group, True, pg.sprite.collide_mask):
-            self.change_room(Room2)
-            break
-
         #colisão com paredes jogador
         if pg.sprite.spritecollide(self.player_sprite_group.sprite, self.walls_sprite_group, False):
             self.player_sprite_group.sprite.move_back()
-
+            
         #colisão inimigos
         for enemy in self.enemies_sprite_group:
             if enemy.name == "Bat": # colisão morcego com parede
@@ -137,6 +131,25 @@ class GameState(AbstractState):
         if keys[pg.K_d]:
             # self.player_sprite_group.sprite.rect.move_ip((3, 0))
             self.player_sprite_group.sprite.change_x += 3
+        
+
+        #interação com objetos
+        if keys[pg.K_SPACE]:
+            for objeto in self.objects_sprite_group:
+                distancia = ((self.player_sprite_group.sprite.rect.centerx - objeto.rect.centerx)**2 + (self.player_sprite_group.sprite.rect.centery - objeto.rect.centery)**2)**0.5
+                if distancia < 100:
+                    objeto.interaction(self.player_sprite_group.sprite)
+                    
+        #interação com a porta
+        if keys[pg.K_m]:
+            for objeto in self.objects_sprite_group:
+                distancia = ((self.player_sprite_group.sprite.rect.centerx - objeto.rect.centerx)**2 + (self.player_sprite_group.sprite.rect.centery - objeto.rect.centery)**2)**0.5
+                if distancia < 100:
+                    mudar_sala = -1
+                    mudar_sala = objeto.interaction(self.player_sprite_group.sprite)
+                    if mudar_sala != -1:
+                        self.change_room(mudar_sala)
+
 
         #ataque player_sprite_group
         if pg.mouse.get_pressed()[0] and not self.player_sprite_group.sprite.in_cooldown:

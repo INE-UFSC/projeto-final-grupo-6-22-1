@@ -9,12 +9,9 @@ class Wardrobe(Entity):
         # Inicialização
         super().__init__(start_pos, "objeto", "wardrobe.png", (78, 108))
 
-    #colisão com o objeto
-    def colidir(self, objeto):
-        if pg.sprite.collide_mask(self, objeto):
-            return True
-        else:
-            return False
+    def interaction(self, player):
+        player.health += 2
+        #return 2
 
 class Wardrobe2(Entity):
     
@@ -23,12 +20,18 @@ class Wardrobe2(Entity):
         # Inicialização
         super().__init__(start_pos, "objeto", "wardrobe2.png", (78, 108))
 
+    def interaction(self, player):
+        player.health -= 4
+
 class Wardrobe3(Entity):
     
 
     def __init__(self, start_pos = (0, 0)):
         # Inicialização
         super().__init__(start_pos, "objeto", "wardrobe3.png", (78, 108))
+
+    def interaction(self, player):
+        player.health += 2
 
 
 class Wardrobe4(Entity):
@@ -37,3 +40,6 @@ class Wardrobe4(Entity):
     def __init__(self, start_pos = (0, 0)):
         # Inicialização
         super().__init__(start_pos, "objeto", "wardrobe4.png", (78, 108))
+
+    def interaction(self, player):
+        player.health += 2

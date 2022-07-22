@@ -20,7 +20,7 @@ class Player(Entity):
         self.original_image = copy(self.image)
 
 
-        self.health = 2
+        self.health = 200
 
         self.change_x = 0
         self.change_y = 0

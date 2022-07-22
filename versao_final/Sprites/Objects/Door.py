@@ -9,12 +9,8 @@ class Door(Entity):
         # Inicialização
         super().__init__(start_pos, "objeto", "door.png", (60, 100))
 
-    #colisão com o objeto
-    def colidir(self, objeto):
-        if pg.sprite.collide_mask(self, objeto):
-            return True
-        else:
-            return False
+    def interaction(self, player):
+        return 2
 
     def change_room(self, room):
         if self.colidir:
