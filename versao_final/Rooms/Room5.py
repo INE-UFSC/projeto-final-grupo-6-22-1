@@ -29,7 +29,7 @@ class Room5(AbstractRoom):
         self.entities['enemies'].append(Zombie((700, 380)))
         self.entities['objects'].append(Wardrobe3((500, 310)))
         self.entities['objects'].append(Wardrobe3((430, 310)))
-        self.entities['objects'].append(Door((300, 287)))
+        self.entities['objects'].append(Door((300, 287), 5))
 
         
         return self.entities

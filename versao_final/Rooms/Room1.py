@@ -25,7 +25,7 @@ class Room1(AbstractRoom):
         self.entities['enemies'].append(Zombie((700, 500)))
         self.entities['objects'].append(Wardrobe((800, 310)))
         self.entities['objects'].append(Piano((520, 329)))
-        self.entities['objects'].append(Door((300, 287)))
+        self.entities['objects'].append(Door((300, 287), 1))
         return self.entities
 
     def start_walls(self):

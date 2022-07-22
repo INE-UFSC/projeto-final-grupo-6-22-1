@@ -157,7 +157,9 @@ class GameState(AbstractState):
             for objeto in self.objects_sprite_group:
                 distancia = ((self.player_sprite_group.sprite.rect.centerx - objeto.rect.centerx)**2 + (self.player_sprite_group.sprite.rect.centery - objeto.rect.centery)**2)**0.5
                 if distancia < 100:
-                    objeto.interaction(self.player_sprite_group.sprite)
+                    mudar_sala = objeto.interaction(self.player_sprite_group.sprite)
+                    if mudar_sala:
+                        self.change_room(mudar_sala)
                     
         #interação com a porta
         if keys[pg.K_m]:
@@ -205,6 +207,9 @@ class GameState(AbstractState):
         self.enemies_sprite_group.add(entities['enemies'])
         self.objects_sprite_group.add(entities['objects'])
         self.walls_sprite_group.add(entities['walls'])
+
+        # Altera posicao do jogador
+        self.player_sprite_group.sprite.rect.center = (500, 500)
 
     def update(self, screen):
         self.attack_sprite_group.update()

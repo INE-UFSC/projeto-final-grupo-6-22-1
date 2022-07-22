@@ -38,7 +38,7 @@ class Room4(AbstractRoom):
         self.entities['enemies'].append(Bat((560, 430)))
         self.entities['enemies'].append(Bat((520, 450)))
         self.entities['enemies'].append(Bat((520, 390)))
-        self.entities['objects'].append(Door((700, 287)))
+        self.entities['objects'].append(Door((700, 287), 4))
         self.entities['objects'].append(Piano((820, 329)))
         
         

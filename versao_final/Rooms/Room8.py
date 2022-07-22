@@ -37,7 +37,7 @@ class Room8(AbstractRoom):
         self.entities['objects'].append(Wardrobe((400, 310)))
         self.entities['objects'].append(Wardrobe((330, 310)))
         self.entities['objects'].append(Bed((820, 350)))
-        self.entities['objects'].append(Door((500, 287)))
+        self.entities['objects'].append(Door((500, 287), 8))
         
         
         return self.entities
