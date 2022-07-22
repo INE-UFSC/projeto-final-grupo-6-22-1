@@ -1,13 +1,11 @@
 import pygame as pg
 from get_image import get_image
 from Rooms.AbstractRoom import AbstractRoom
-from Sprites.Enemies.Zombie import Zombie
-from Sprites.Objects.Wardrobe import Wardrobe4
+from Sprites.Objects.Wardrobe import Wardrobe2
 from Sprites.Objects.Door import Door
-from Sprites.Objects.Bed import Bed
 from Sprites.Objects.Piano import Piano
-from Sprites.Objects.Table import Table
 from Sprites.Wall import Wall
+from Sprites.Enemies.Skeleton import Skeleton
 
 class Room3(AbstractRoom):
     def __init__(self):
@@ -26,16 +24,14 @@ class Room3(AbstractRoom):
     def load(self, entry_point):
         self.start_walls()
 
-        self.entities['enemies'].append(Zombie((700, 500)))
-        self.entities['enemies'].append(Zombie((800, 500)))
-        self.entities['enemies'].append(Zombie((750, 570)))
-        self.entities['enemies'].append(Zombie((700, 380)))
-        self.entities['objects'].append(Wardrobe4((400, 310)))
-        self.entities['objects'].append(Wardrobe4((330, 310)))
-        self.entities['objects'].append(Bed((520, 350)))
-        self.entities['objects'].append(Door((700, 287)))
-        self.entities['objects'].append(Piano((820, 329)))
-        self.entities['objects'].append(Table((802, 529)))
+        self.entities['objects'].append(Wardrobe2((450, 310)))
+        self.entities['objects'].append(Wardrobe2((540, 310)))
+        self.entities['objects'].append(Door((300, 287)))
+        self.entities['objects'].append(Piano((720, 329)))
+        self.entities['enemies'].append(Skeleton((600, 400)))
+        self.entities['enemies'].append(Skeleton((650, 380)))
+        self.entities['enemies'].append(Skeleton((550, 400)))
+        self.entities['enemies'].append(Skeleton((660, 362)))
         
         
         return self.entities

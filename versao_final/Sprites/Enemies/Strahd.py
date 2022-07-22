@@ -3,7 +3,7 @@ from math import atan2, cos, sin
 from Sprites.Enemies.Enemy import Enemy
 
 class Strahd(Enemy):
-    def __init__(self, start_pos, image_folder="enemies", image_name="zumbi.png", image_size=(150, 150)):
+    def __init__(self, start_pos, image_folder="enemies", image_name="vampire.png", image_size=(144, 234)):
         super().__init__(start_pos, image_folder, image_name, image_size)
         self.name = "Strahd"
         self.health = 5

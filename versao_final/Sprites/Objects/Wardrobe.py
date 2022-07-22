@@ -11,6 +11,7 @@ class Wardrobe(Entity):
 
     def interaction(self, player):
         player.health += 2
+        print("Você ganhou 2 de vida")
         #return 2
 
 class Wardrobe2(Entity):
@@ -22,6 +23,7 @@ class Wardrobe2(Entity):
 
     def interaction(self, player):
         player.health -= 4
+        print("Você interagiu com o armário 2, e perdeu 4 de vida")
 
 class Wardrobe3(Entity):
     
@@ -31,7 +33,8 @@ class Wardrobe3(Entity):
         super().__init__(start_pos, "objeto", "wardrobe3.png", (78, 108))
 
     def interaction(self, player):
-        player.health += 2
+        player.health += 5
+        print("Você ganhou 5 de vida")
 
 
 class Wardrobe4(Entity):
@@ -42,4 +45,5 @@ class Wardrobe4(Entity):
         super().__init__(start_pos, "objeto", "wardrobe4.png", (78, 108))
 
     def interaction(self, player):
-        player.health += 2
+        player.health -= 1
+        print("Você perdeu 1 de vida")

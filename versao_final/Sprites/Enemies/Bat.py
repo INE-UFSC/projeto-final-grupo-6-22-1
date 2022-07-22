@@ -3,7 +3,7 @@ from random import choice
 from Sprites.Enemies.Enemy import Enemy
 
 class Bat(Enemy):
-    def __init__(self, start_pos, image_folder="enemies", image_name="quadrado.png", image_size=(30, 30)):
+    def __init__(self, start_pos, image_folder="enemies", image_name="bat.png", image_size=(30, 15)):
         super().__init__(start_pos, image_folder, image_name, image_size)
         self.name = "Bat"
         self.health = 2

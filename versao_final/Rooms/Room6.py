@@ -1,16 +1,15 @@
 import pygame as pg
 from get_image import get_image
 from Rooms.AbstractRoom import AbstractRoom
-from Sprites.Enemies.Skeleton import Skeleton
-from Sprites.Objects.Wardrobe import Wardrobe3, Wardrobe2
+from Sprites.Enemies.Zombie import Zombie
+from Sprites.Objects.Wardrobe import Wardrobe4
 from Sprites.Objects.Door import Door
 from Sprites.Objects.Bed import Bed
 from Sprites.Objects.Piano import Piano
 from Sprites.Objects.Table import Table
-from Sprites.Enemies.Bat import Bat
 from Sprites.Wall import Wall
 
-class Room4(AbstractRoom):
+class Room6(AbstractRoom):
     def __init__(self):
         super().__init__()
         self.background = get_image('Telas', 'Tela.png')
@@ -27,19 +26,16 @@ class Room4(AbstractRoom):
     def load(self, entry_point):
         self.start_walls()
 
-        self.entities['enemies'].append(Skeleton((700, 500)))
-        self.entities['enemies'].append(Skeleton((800, 500)))
-        self.entities['enemies'].append(Skeleton((750, 570)))
-        self.entities['enemies'].append(Skeleton((700, 380)))
-        self.entities['objects'].append(Wardrobe3((400, 310)))
-        self.entities['objects'].append(Wardrobe2((330, 310)))
-        self.entities['enemies'].append(Bat((520, 350)))
-        self.entities['enemies'].append(Bat((540, 410)))
-        self.entities['enemies'].append(Bat((560, 430)))
-        self.entities['enemies'].append(Bat((520, 450)))
-        self.entities['enemies'].append(Bat((520, 390)))
+        self.entities['enemies'].append(Zombie((700, 500)))
+        self.entities['enemies'].append(Zombie((800, 500)))
+        self.entities['enemies'].append(Zombie((750, 570)))
+        self.entities['enemies'].append(Zombie((700, 380)))
+        self.entities['objects'].append(Wardrobe4((400, 310)))
+        self.entities['objects'].append(Wardrobe4((330, 310)))
+        self.entities['objects'].append(Bed((520, 350)))
         self.entities['objects'].append(Door((700, 287)))
         self.entities['objects'].append(Piano((820, 329)))
+        self.entities['objects'].append(Table((802, 529)))
         
         
         return self.entities

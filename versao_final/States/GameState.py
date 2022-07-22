@@ -109,6 +109,25 @@ class GameState(AbstractState):
         if keys[pg.K_4]:
             self.change_room(3)
         
+        if keys[pg.K_5]:
+            self.change_room(4)
+
+        if keys[pg.K_6]:
+            self.change_room(5)
+
+        if keys[pg.K_7]:
+            self.change_room(6)
+
+        if keys[pg.K_8]:
+            self.change_room(7)
+
+        if keys[pg.K_9]:
+            self.change_room(8)
+
+        if keys[pg.K_0]:
+            self.change_room(9)
+ 
+        
         if keys[pg.K_UP]:
             print(self.room_entities_sprite_group.sprites())
 
