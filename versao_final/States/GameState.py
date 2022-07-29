@@ -39,6 +39,9 @@ class GameState(AbstractState):
         self.player_sprite_group.add(Player(start_pos=(500, 500)))
         self.start_time = pg.time.get_ticks()
         self.end_time = -1
+
+        for room in self.room_controller.rooms:
+            room.cleared = False
         self.change_room(0)
 
     def handle_events(self, event):
