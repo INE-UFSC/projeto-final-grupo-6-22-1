@@ -34,7 +34,7 @@ class Room7(AbstractRoom):
         self.entities['objects'].append(Wardrobe3((330, 310)))
         self.entities['objects'].append(SideDoor((1150, 480), 7))
         self.entities['objects'].append(Piano((820, 329)))
-        self.entities['objects'].append(Table((702, 429)))
+        #self.entities['objects'].append(Table((702, 429)))
         
         
         return self.entities

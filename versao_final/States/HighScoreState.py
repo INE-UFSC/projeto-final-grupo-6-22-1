@@ -8,7 +8,7 @@ class HighScoreState(AbstractState):
         AbstractState.__init__(self)
         self.score_controller = score_controller
 
-        self.background = get_image('telas', 'TelaVitoria.png')
+        self.background = get_image('telas', 'TelaHighScore.png')
         self.background = pg.transform.smoothscale(self.background, (1280, 700))       
         self.rect_menu = pg.Rect(60, 560, 500, 125)
         #self.text_menu = menu_font.render('Retornar ao menu', True, (0, 0, 0))
