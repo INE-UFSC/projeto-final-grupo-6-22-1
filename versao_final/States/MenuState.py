@@ -10,6 +10,7 @@ class MenuState(AbstractState):
         self.background = pg.transform.smoothscale(self.background, (1280, 700))
         self.rect_jogar = pg.Rect(80, 475, 250, 60)
        # self.text_jogar = menu_font.render('Jogar', True, (0, 0, 0))
+        self.rect_score = pg.Rect(80, 555, 250, 60)
         self.rect_sair = pg.Rect(80, 635, 190, 60)
        # self.text_sair = menu_font.render('Sair', True, (0, 0, 0))
 
@@ -25,6 +26,9 @@ class MenuState(AbstractState):
             mouse_pos = pg.mouse.get_pos()
             if self.rect_jogar.collidepoint(mouse_pos):
                 self.next = 'game'
+                self.done = True
+            elif self.rect_score.collidepoint(mouse_pos):
+                self.next = 'high_score'
                 self.done = True
             elif self.rect_sair.collidepoint(mouse_pos):
                 self.quit = True

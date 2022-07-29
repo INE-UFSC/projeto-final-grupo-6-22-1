@@ -5,6 +5,7 @@ from States.GameState import GameState
 from States.MenuState import MenuState
 from States.WinState import WinState
 from States.GameOverState import GameOverState
+from States.HighScoreState import HighScoreState
 
 from Score.ScoreController import ScoreController
 
@@ -26,7 +27,8 @@ class Control:
         'menu': MenuState(self.menu_font),
         'game': GameState(),
         'game_over': GameOverState(self.menu_font),
-        'win': WinState(self.menu_font, self.score_controller)
+        'win': WinState(self.menu_font, self.score_controller),
+        'high_score': HighScoreState(self.menu_font, self.score_controller)
         }
         self.setup_states(self.state_dict, 'menu')
         self.main_game_loop()

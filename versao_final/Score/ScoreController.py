@@ -14,4 +14,7 @@ class ScoreController():
 
     def get_last_score(self):
         return self.scoreDAO.get(self.counter - 1)
+
+    def get_all(self):
+        return self.scoreDAO.get_all()
     
