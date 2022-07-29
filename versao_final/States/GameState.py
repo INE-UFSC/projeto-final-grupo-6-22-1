@@ -1,4 +1,5 @@
 import pygame as pg
+from get_image import get_image
 from States.AbstractState import AbstractState
 from Sprites.Player import Player
 from Rooms.RoomController import RoomController
@@ -155,22 +156,13 @@ class GameState(AbstractState):
 
         #interação com objetos
         if keys[pg.K_SPACE]:
-            for objeto in self.objects_sprite_group:
-                distancia = ((self.player_sprite_group.sprite.hitbox.centerx - objeto.rect.centerx)**2 + (self.player_sprite_group.sprite.hitbox.centery - objeto.rect.centery)**2)**0.5
-                if distancia < 100:
-                    mudar_sala = objeto.interaction(self.player_sprite_group.sprite)
-                    if mudar_sala:
-                        self.change_room(mudar_sala)
-                    
-        #interação com a porta
-        if keys[pg.K_m]:
-            for objeto in self.objects_sprite_group:
-                distancia = ((self.player_sprite_group.sprite.hitbox.centerx - objeto.rect.centerx)**2 + (self.player_sprite_group.sprite.hitbox.centery - objeto.rect.centery)**2)**0.5
-                if distancia < 100:
-                    mudar_sala = -1
-                    mudar_sala = objeto.interaction(self.player_sprite_group.sprite)
-                    if mudar_sala != -1:
-                        self.change_room(mudar_sala)
+            if self.room_controller.current_room.cleared:
+                for objeto in self.objects_sprite_group:
+                    distancia = ((self.player_sprite_group.sprite.hitbox.centerx - objeto.rect.centerx)**2 + (self.player_sprite_group.sprite.hitbox.centery - objeto.rect.centery)**2)**0.5
+                    if distancia < 100:
+                        mudar_sala = objeto.interaction(self.player_sprite_group.sprite)
+                        if mudar_sala:
+                            self.change_room(mudar_sala)
 
 
         #ataque player_sprite_group
@@ -209,6 +201,9 @@ class GameState(AbstractState):
         self.objects_sprite_group.add(entities['objects'])
         self.walls_sprite_group.add(entities['walls'])
 
+        if self.room_controller.current_room.cleared == True:
+            for sprite in self.enemies_sprite_group:
+                sprite.kill()
         # Altera posicao do jogador
         self.player_sprite_group.sprite.hitbox.center = (500, 500)
 
@@ -226,6 +221,9 @@ class GameState(AbstractState):
         for enemy in self.enemies_sprite_group:
             movement = enemy.ai_move(self.player_sprite_group.sprite.hitbox.center)
             enemy.rect.move_ip(movement[0], movement[1])
+
+        if not self.enemies_sprite_group:
+            self.room_controller.current_room.cleared = True
 
         self.draw(screen)
 
@@ -245,5 +243,10 @@ class GameState(AbstractState):
         self.player_sprite_group.draw(screen)
 
 
+        # hud
+        pg.draw.rect(screen, (99, 23, 23), pg.Rect(0, 0, 1280, 180))
 
-        pg.draw.rect(screen, (99, 23, 23), pg.Rect(0, 0, 1280, 180)) #HUD
+        img = get_image("art", "coracao.png")
+        img = pg.transform.smoothscale(img, (280, 295))
+        screen.blit(img, (1000, -70))
+        screen.blit(pg.font.Font(pg.font.get_default_font(), 60).render(str(self.player_sprite_group.sprite.health), 1, (0, 0, 0)), (1130, 60))

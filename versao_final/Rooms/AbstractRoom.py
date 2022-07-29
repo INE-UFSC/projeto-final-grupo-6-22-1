@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 class AbstractRoom(ABC):
     def __init__(self):
-        self.visited = False
+        self.cleared = False
         self.entities = {'enemies': [], 'objects': [], 'walls': []}
     
     @abstractmethod
