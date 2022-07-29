@@ -6,7 +6,7 @@ from Sprites.Enemies.Bat import Bat
 from Sprites.Objects.Wardrobe import Wardrobe3
 from Sprites.Objects.SideDoor import SideDoor
 from Sprites.Objects.Piano import Piano
-from Sprites.Objects.Table import Table
+from Sprites.Enemies.Ghost import Ghost
 from Sprites.Wall import Wall
 
 class Room7(AbstractRoom):
@@ -14,6 +14,10 @@ class Room7(AbstractRoom):
         super().__init__()
         self.background = get_image('Telas', 'Tela.png')
         self.background = pg.transform.smoothscale(self.background, (1280, 700))
+        self.art= get_image('maps', 'map7.png')
+        self.art = pg.transform.smoothscale(self.art, (170, 170))
+        self.art2= get_image('picture', 'picture4.png')
+        self.art2 = pg.transform.smoothscale(self.art2, (200,145))
         
     def draw_background(self, screen):
         #screen.fill((255, 255, 255))
@@ -21,7 +25,8 @@ class Room7(AbstractRoom):
         screen.blit(self.background, dest=(0, 0))
 
     def draw_art(self, screen):
-        pass
+        screen.blit(self.art, (10, 10))
+        screen.blit(self.art2, (550, 179))
     
     def load(self, entry_point):
         self.start_walls()
@@ -29,6 +34,11 @@ class Room7(AbstractRoom):
         self.entities['enemies'].append(Zombie((700, 500)))
         self.entities['enemies'].append(Zombie((800, 500)))
         self.entities['enemies'].append(Zombie((750, 570)))
+        self.entities['enemies'].append(Ghost((700, 380)))
+        self.entities['enemies'].append(Ghost((750, 380)))
+        self.entities['enemies'].append(Ghost((340, 380)))
+        self.entities['enemies'].append(Ghost((570, 380)))
+        self.entities['enemies'].append(Ghost((660, 380)))
         self.entities['enemies'].append(Bat((700, 380)))
         self.entities['objects'].append(Wardrobe3((400, 310)))
         self.entities['objects'].append(Wardrobe3((330, 310)))

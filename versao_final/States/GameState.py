@@ -247,7 +247,7 @@ class GameState(AbstractState):
 
 
         # hud
-        pg.draw.rect(screen, (99, 23, 23), pg.Rect(0, 0, 1280, 180))
+        #pg.draw.rect(screen, (99, 23, 23), pg.Rect(0, 0, 1280, 180))
 
         img = get_image("art", "coracao.png")
         img = pg.transform.smoothscale(img, (280, 295))

@@ -12,6 +12,8 @@ class Room1(AbstractRoom):
         self.rect_mudarSala = pg.Rect(60, 100, 300, 287) #apagar isso também
         self.background = get_image('Telas', 'Tela.png')
         self.background = pg.transform.smoothscale(self.background, (1280, 700))
+        self.art= get_image('maps', 'map1.png')
+        self.art = pg.transform.smoothscale(self.art, (170, 170))
         
     def draw_background(self, screen):
         #screen.fill((255, 255, 255))
@@ -19,7 +21,8 @@ class Room1(AbstractRoom):
         screen.blit(self.background, dest=(0, 0))
 
     def draw_art(self, screen):
-        pass
+        screen.blit(self.art, (10, 10))
+        
     
     def load(self, entry_point):
         self.entities['enemies'].append(Zombie((700, 500)))

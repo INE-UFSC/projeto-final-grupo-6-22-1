@@ -15,6 +15,10 @@ class Room4(AbstractRoom):
         super().__init__()
         self.background = get_image('Telas', 'Tela.png')
         self.background = pg.transform.smoothscale(self.background, (1280, 700))
+        self.art= get_image('maps', 'map4.png')
+        self.art = pg.transform.smoothscale(self.art, (170, 170))
+        self.art2= get_image('picture', 'picture2.png')
+        self.art2 = pg.transform.smoothscale(self.art2, (100, 135))
         
     def draw_background(self, screen):
         #screen.fill((255, 255, 255))
@@ -22,7 +26,8 @@ class Room4(AbstractRoom):
         screen.blit(self.background, dest=(0, 0))
 
     def draw_art(self, screen):
-        pass
+        screen.blit(self.art, (10, 10))
+        screen.blit(self.art2, (650, 205))
     
     def load(self, entry_point):
         self.start_walls()
