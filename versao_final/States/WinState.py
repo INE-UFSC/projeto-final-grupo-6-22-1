@@ -1,4 +1,6 @@
 import pygame as pg
+from Score.ScoreController import ScoreController
+from Score.ScoreDAO import ScoreDAO
 from States.AbstractState import AbstractState
 from get_image import get_image
 
@@ -6,13 +8,15 @@ from get_image import get_image
 class WinState(AbstractState):
     def __init__(self, menu_font, score_controller):
         AbstractState.__init__(self)
-
         self.score_controller = score_controller
+        self.ScoreController = ScoreController()
+
         self.background = get_image('telas', 'TelaVitoria.png')
         self.background = pg.transform.smoothscale(self.background, (1280, 700))       
-        #self.text_win = menu_font.render('VITÓRIA', True, (0, 0, 0))
+        self.score = menu_font.render(str(self.score_controller.get_last_score()), True, (77, 0, 18))
         self.rect_menu = pg.Rect(60, 560, 500, 125)
         #self.text_menu = menu_font.render('Retornar ao menu', True, (0, 0, 0))
+
 
     def startup(self):
         print(self.score_controller.get_last_score())
@@ -43,4 +47,4 @@ class WinState(AbstractState):
     
         #screen.blit(self.text_menu, dest=(550, 370))
 
-        #screen.blit(self.text_win, dest=(500, 125))
+        screen.blit(self.score, dest=(570, 335))
