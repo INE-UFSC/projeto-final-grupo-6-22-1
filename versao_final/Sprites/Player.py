@@ -1,3 +1,4 @@
+from tracemalloc import start
 import pygame as pg
 from copy import copy
 from Sprites.Entity import Entity
@@ -18,7 +19,7 @@ class Player(Entity):
         super().__init__(start_pos, image_folder, image_name, image_size)
 
         self.original_image = copy(self.image)
-
+        self.hitbox = pg.Rect(start_pos, (30, 30))
 
         self.health = 2
 
@@ -39,6 +40,8 @@ class Player(Entity):
         """
         Atualiza a sprite
         """
+        self.rect.center = self.hitbox.centerx, self.hitbox.centery - 28
+
         time = pg.time.get_ticks()
         if time - self.last_shot_time >= 800: #cooldown especifico arma
             self.in_cooldown = False
@@ -80,4 +83,4 @@ class Player(Entity):
         """
         Move o jogador para a posição anterior
         """
-        self.rect.centerx, self.rect.centery = self.last_pos
+        self.hitbox.center = self.last_pos

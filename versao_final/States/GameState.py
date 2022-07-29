@@ -1,10 +1,7 @@
-from turtle import distance
 import pygame as pg
-from Rooms.Room2 import Room2
 from States.AbstractState import AbstractState
 from Sprites.Player import Player
 from Rooms.RoomController import RoomController
-from Sprites.Objects.Door import Door
 
 class GameState(AbstractState):
     def __init__(self):
@@ -66,11 +63,11 @@ class GameState(AbstractState):
                 self.done = True
 
         #colisão com paredes jogador
-        if pg.sprite.spritecollide(self.player_sprite_group.sprite, self.walls_sprite_group, False):
+        if pg.sprite.spritecollide(self.player_sprite_group.sprite, self.walls_sprite_group, False, lambda sprite1, sprite2: sprite1.hitbox.colliderect(sprite2.rect)):
             self.player_sprite_group.sprite.move_back()
 
         #Tentativa de colisão do jogador com objetos
-        if pg.sprite.spritecollide(self.player_sprite_group.sprite, self.objects_sprite_group, False):
+        if pg.sprite.spritecollide(self.player_sprite_group.sprite, self.objects_sprite_group, False, lambda sprite1, sprite2: sprite1.hitbox.colliderect(sprite2.rect)):
             self.player_sprite_group.sprite.move_back()    
             
         #colisão inimigos
@@ -80,7 +77,7 @@ class GameState(AbstractState):
                     enemy.change_direction(wall.rect)
                     
         #colisao player_sprite_group inimigo
-        for enemy_colission in pg.sprite.spritecollide(self.player_sprite_group.sprite, self.enemies_sprite_group, False, pg.sprite.collide_mask):
+        for enemy_colission in pg.sprite.spritecollide(self.player_sprite_group.sprite, self.enemies_sprite_group, False, lambda sprite1, sprite2: sprite1.hitbox.colliderect(sprite2.rect)):
             self.player_sprite_group.sprite.damage_taken(damage = enemy_colission.damage)
 
             if self.player_sprite_group.sprite.health <= 0:
@@ -159,7 +156,7 @@ class GameState(AbstractState):
         #interação com objetos
         if keys[pg.K_SPACE]:
             for objeto in self.objects_sprite_group:
-                distancia = ((self.player_sprite_group.sprite.rect.centerx - objeto.rect.centerx)**2 + (self.player_sprite_group.sprite.rect.centery - objeto.rect.centery)**2)**0.5
+                distancia = ((self.player_sprite_group.sprite.hitbox.centerx - objeto.rect.centerx)**2 + (self.player_sprite_group.sprite.hitbox.centery - objeto.rect.centery)**2)**0.5
                 if distancia < 100:
                     mudar_sala = objeto.interaction(self.player_sprite_group.sprite)
                     if mudar_sala:
@@ -168,7 +165,7 @@ class GameState(AbstractState):
         #interação com a porta
         if keys[pg.K_m]:
             for objeto in self.objects_sprite_group:
-                distancia = ((self.player_sprite_group.sprite.rect.centerx - objeto.rect.centerx)**2 + (self.player_sprite_group.sprite.rect.centery - objeto.rect.centery)**2)**0.5
+                distancia = ((self.player_sprite_group.sprite.hitbox.centerx - objeto.rect.centerx)**2 + (self.player_sprite_group.sprite.hitbox.centery - objeto.rect.centery)**2)**0.5
                 if distancia < 100:
                     mudar_sala = -1
                     mudar_sala = objeto.interaction(self.player_sprite_group.sprite)
@@ -213,7 +210,7 @@ class GameState(AbstractState):
         self.walls_sprite_group.add(entities['walls'])
 
         # Altera posicao do jogador
-        self.player_sprite_group.sprite.rect.center = (500, 500)
+        self.player_sprite_group.sprite.hitbox.center = (500, 500)
 
     def update(self, screen):
         self.attack_sprite_group.update()
@@ -221,13 +218,13 @@ class GameState(AbstractState):
         self.room_entities_sprite_group.update()
         
         # Controle de movimento do jogador
-        self.player_sprite_group.sprite.last_pos = self.player_sprite_group.sprite.rect.center
-        self.player_sprite_group.sprite.rect.move_ip(self.player_sprite_group.sprite.change_x, self.player_sprite_group.sprite.change_y)
+        self.player_sprite_group.sprite.last_pos = self.player_sprite_group.sprite.hitbox.center
+        self.player_sprite_group.sprite.hitbox.move_ip(self.player_sprite_group.sprite.change_x, self.player_sprite_group.sprite.change_y)
         self.player_sprite_group.sprite.change_x = 0
         self.player_sprite_group.sprite.change_y = 0
 
         for enemy in self.enemies_sprite_group:
-            movement = enemy.ai_move(self.player_sprite_group.sprite.rect.center)
+            movement = enemy.ai_move(self.player_sprite_group.sprite.hitbox.center)
             enemy.rect.move_ip(movement[0], movement[1])
 
         self.draw(screen)
@@ -243,8 +240,10 @@ class GameState(AbstractState):
 
         self.attack_sprite_group.draw(screen)
 
+        self.enemies_sprite_group.draw(screen)
+
         self.player_sprite_group.draw(screen)
 
-        self.enemies_sprite_group.draw(screen)
+
 
         pg.draw.rect(screen, (99, 23, 23), pg.Rect(0, 0, 1280, 180)) #HUD
