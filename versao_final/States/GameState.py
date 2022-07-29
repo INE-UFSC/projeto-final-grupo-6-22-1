@@ -1,4 +1,5 @@
 import pygame as pg
+from get_image import get_image
 from States.AbstractState import AbstractState
 from Sprites.Player import Player
 from Rooms.RoomController import RoomController
@@ -242,5 +243,10 @@ class GameState(AbstractState):
         self.player_sprite_group.draw(screen)
 
 
+        # hud
+        pg.draw.rect(screen, (99, 23, 23), pg.Rect(0, 0, 1280, 180))
 
-        pg.draw.rect(screen, (99, 23, 23), pg.Rect(0, 0, 1280, 180)) #HUD
+        img = get_image("art", "coracao.png")
+        img = pg.transform.smoothscale(img, (280, 295))
+        screen.blit(img, (1000, -70))
+        screen.blit(pg.font.Font(pg.font.get_default_font(), 60).render(str(self.player_sprite_group.sprite.health), 1, (0, 0, 0)), (1130, 60))

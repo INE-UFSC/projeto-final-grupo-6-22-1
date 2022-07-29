@@ -21,7 +21,7 @@ class Player(Entity):
         self.original_image = copy(self.image)
         self.hitbox = pg.Rect(start_pos, (30, 30))
 
-        self.health = 2
+        self.health = 5
 
         self.change_x = 0
         self.change_y = 0
