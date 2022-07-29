@@ -3,7 +3,7 @@ from get_image import get_image
 from Rooms.AbstractRoom import AbstractRoom
 from Sprites.Enemies.Zombie import Zombie
 from Sprites.Objects.Wardrobe import Wardrobe3
-from Sprites.Objects.Door import Door
+from Sprites.Objects.SideDoor import SideDoor
 from Sprites.Wall import Wall
 
 class Room5(AbstractRoom):
@@ -29,7 +29,7 @@ class Room5(AbstractRoom):
         self.entities['enemies'].append(Zombie((700, 380)))
         self.entities['objects'].append(Wardrobe3((500, 310)))
         self.entities['objects'].append(Wardrobe3((430, 310)))
-        self.entities['objects'].append(Door((300, 287), 5))
+        self.entities['objects'].append(SideDoor((135, 387), 5))
 
         
         return self.entities

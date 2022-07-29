@@ -5,7 +5,7 @@ from Sprites.Enemies.Zombie import Zombie
 from Sprites.Enemies.Skeleton import Skeleton
 from Sprites.Enemies.Bat import Bat
 from Sprites.Objects.Wardrobe import Wardrobe
-from Sprites.Objects.Door import Door
+from Sprites.Objects.Door import DoorBoss
 from Sprites.Objects.Bed import Bed
 from Sprites.Wall import Wall
 
@@ -37,7 +37,7 @@ class Room8(AbstractRoom):
         self.entities['objects'].append(Wardrobe((400, 310)))
         self.entities['objects'].append(Wardrobe((330, 310)))
         self.entities['objects'].append(Bed((820, 350)))
-        self.entities['objects'].append(Door((500, 287), 8))
+        self.entities['objects'].append(DoorBoss((500, 287), 8))
         
         
         return self.entities

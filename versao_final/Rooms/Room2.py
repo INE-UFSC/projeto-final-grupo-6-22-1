@@ -4,6 +4,7 @@ from Rooms.AbstractRoom import AbstractRoom
 from Sprites.Enemies.Zombie import Zombie
 from Sprites.Objects.Wardrobe import Wardrobe
 from Sprites.Objects.Door import Door
+from Sprites.Objects.SideDoor import SideDoor
 from Sprites.Wall import Wall
 from Sprites.Enemies.Bat import Bat
 from Sprites.Enemies.Skeleton import Skeleton
@@ -26,12 +27,13 @@ class Room2(AbstractRoom):
 
         self.entities['enemies'].append(Zombie((600, 600)))
         self.entities['enemies'].append(Zombie((650, 600)))
-        self.entities['objects'].append(Door((900, 287), 2))        
+        #self.entities['objects'].append(Door((900, 287), 2))        
         self.entities['objects'].append(Wardrobe((700, 310)))
         self.entities['objects'].append(Wardrobe((600, 310)))
         self.entities['enemies'].append(Zombie((550, 400)))
         self.entities['enemies'].append(Zombie((660, 362)))
         self.entities['enemies'].append(Bat((800, 500)))
+        self.entities['objects'].append(SideDoor((1150, 387), 2))
         return self.entities
 
     def start_walls(self):

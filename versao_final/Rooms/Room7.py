@@ -4,7 +4,7 @@ from Rooms.AbstractRoom import AbstractRoom
 from Sprites.Enemies.Zombie import Zombie
 from Sprites.Enemies.Bat import Bat
 from Sprites.Objects.Wardrobe import Wardrobe3
-from Sprites.Objects.Door import Door
+from Sprites.Objects.SideDoor import SideDoor
 from Sprites.Objects.Piano import Piano
 from Sprites.Objects.Table import Table
 from Sprites.Wall import Wall
@@ -32,7 +32,7 @@ class Room7(AbstractRoom):
         self.entities['enemies'].append(Bat((700, 380)))
         self.entities['objects'].append(Wardrobe3((400, 310)))
         self.entities['objects'].append(Wardrobe3((330, 310)))
-        self.entities['objects'].append(Door((600, 280), 7))
+        self.entities['objects'].append(SideDoor((1150, 480), 7))
         self.entities['objects'].append(Piano((820, 329)))
         self.entities['objects'].append(Table((702, 429)))
         

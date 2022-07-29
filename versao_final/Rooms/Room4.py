@@ -3,7 +3,7 @@ from get_image import get_image
 from Rooms.AbstractRoom import AbstractRoom
 from Sprites.Enemies.Skeleton import Skeleton
 from Sprites.Objects.Wardrobe import Wardrobe3, Wardrobe2
-from Sprites.Objects.Door import Door
+from Sprites.Objects.SideDoor import SideDoor
 from Sprites.Objects.Bed import Bed
 from Sprites.Objects.Piano import Piano
 from Sprites.Objects.Table import Table
@@ -38,7 +38,7 @@ class Room4(AbstractRoom):
         self.entities['enemies'].append(Bat((560, 430)))
         self.entities['enemies'].append(Bat((520, 450)))
         self.entities['enemies'].append(Bat((520, 390)))
-        self.entities['objects'].append(Door((700, 287), 4))
+        self.entities['objects'].append(SideDoor((135, 487), 4))
         self.entities['objects'].append(Piano((820, 329)))
         
         

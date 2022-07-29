@@ -26,7 +26,7 @@ class Room3(AbstractRoom):
 
         self.entities['objects'].append(Wardrobe2((450, 310)))
         self.entities['objects'].append(Wardrobe2((540, 310)))
-        self.entities['objects'].append(Door((300, 287), 3))
+        self.entities['objects'].append(Door((860, 287), 3))
         self.entities['objects'].append(Piano((720, 329)))
         self.entities['enemies'].append(Skeleton((600, 400)))
         self.entities['enemies'].append(Skeleton((650, 380)))
