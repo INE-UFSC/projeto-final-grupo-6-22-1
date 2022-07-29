@@ -10,4 +10,4 @@ class Bed(Entity):
         super().__init__(start_pos, "objeto", "cama.png", (75, 100))
 
     def interaction(self, player):
-        print("Zzzz")
+        print("Você não pode dormir agora, há monstros por perto")

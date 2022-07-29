@@ -68,6 +68,10 @@ class GameState(AbstractState):
         #colisão com paredes jogador
         if pg.sprite.spritecollide(self.player_sprite_group.sprite, self.walls_sprite_group, False):
             self.player_sprite_group.sprite.move_back()
+
+        #Tentativa de colisão do jogador com objetos
+        if pg.sprite.spritecollide(self.player_sprite_group.sprite, self.objects_sprite_group, False):
+            self.player_sprite_group.sprite.move_back()    
             
         #colisão inimigos
         for enemy in self.enemies_sprite_group:
@@ -244,5 +248,3 @@ class GameState(AbstractState):
         self.enemies_sprite_group.draw(screen)
 
         pg.draw.rect(screen, (99, 23, 23), pg.Rect(0, 0, 1280, 180)) #HUD
-
-
