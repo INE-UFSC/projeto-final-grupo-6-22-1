@@ -1,4 +1,3 @@
-from tracemalloc import start
 import pygame as pg
 from copy import copy
 from Sprites.Entity import Entity

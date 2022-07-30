@@ -12,13 +12,13 @@ from Score.ScoreController import ScoreController
 
 class Control:
     def __init__(self):
-        self.done = False
-        self.fps = 60
-        self.screen = pg.display.set_mode((1280, 720))
-        self.screen_rect = self.screen.get_rect()
-        self.clock = pg.time.Clock()
+        self.__done = False
+        self.__fps = 60
+        self.__screen = pg.display.set_mode((1280, 720))
+        self.__screen_rect = self.__screen.get_rect()
+        self.__clock = pg.time.Clock()
         
-        self.score_controller = ScoreController()
+        self.__score_controller = ScoreController()
 
     def init(self):
         pg.init()
@@ -27,8 +27,8 @@ class Control:
         'menu': MenuState(self.menu_font),
         'game': GameState(),
         'game_over': GameOverState(self.menu_font),
-        'win': WinState(self.menu_font, self.score_controller),
-        'high_score': HighScoreState(self.menu_font, self.score_controller)
+        'win': WinState(self.menu_font, self.__score_controller),
+        'high_score': HighScoreState(self.menu_font, self.__score_controller)
         }
         self.setup_states(self.state_dict, 'menu')
         self.main_game_loop()
@@ -49,26 +49,25 @@ class Control:
         score = self.state.cleanup()
 
         if score != -1:
-            self.score_controller.add_score(score)
+            self.__score_controller.add_score(score)
     
         self.state = self.state_dict[self.state_name]
         self.state.startup()
         self.state.previous = previous
-
-        print(self.score_controller.scoreDAO.get_all())
+        
     def update(self):
         if self.state.quit:
-            self.done = True
+            self.__done = True
         elif self.state.done:
             self.flip_state() # Troca de estado
         
         self.state.handle_collisions()
-        self.state.update(self.screen)
+        self.state.update(self.__screen)
         
     def event_loop(self):
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                self.done = True
+                self.__done = True
             self.state.handle_events(event)
     
     def get_keys(self):
@@ -76,8 +75,9 @@ class Control:
         self.state.handle_keys(keys)
             
     def main_game_loop(self):
-        while not self.done:
-            self.clock.tick(self.fps)
+        while not self.__done:
+            self.__clock.tick(self.__fps
+)
             self.event_loop()
             self.get_keys()
             self.update()

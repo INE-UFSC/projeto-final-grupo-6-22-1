@@ -6,12 +6,12 @@ class MenuState(AbstractState):
     def __init__(self, menu_font):
         super().__init__()
 
-        self.background = get_image('Telas', 'TelaMenu.png')
-        self.background = pg.transform.smoothscale(self.background, (1280, 700))
-        self.rect_jogar = pg.Rect(80, 475, 250, 60)
+        self.__background = get_image('Telas', 'TelaMenu.png')
+        self.__background = pg.transform.smoothscale(self.__background, (1280, 700))
+        self.__rect_jogar = pg.Rect(80, 475, 250, 60)
        # self.text_jogar = menu_font.render('Jogar', True, (0, 0, 0))
-        self.rect_score = pg.Rect(80, 555, 250, 60)
-        self.rect_sair = pg.Rect(80, 635, 190, 60)
+        self.__rect_score = pg.Rect(80, 555, 250, 60)
+        self.__rect_sair = pg.Rect(80, 635, 190, 60)
        # self.text_sair = menu_font.render('Sair', True, (0, 0, 0))
 
 
@@ -24,13 +24,13 @@ class MenuState(AbstractState):
 
         if event.type == pg.MOUSEBUTTONDOWN:
             mouse_pos = pg.mouse.get_pos()
-            if self.rect_jogar.collidepoint(mouse_pos):
+            if self.__rect_jogar.collidepoint(mouse_pos):
                 self.next = 'game'
                 self.done = True
-            elif self.rect_score.collidepoint(mouse_pos):
+            elif self.__rect_score.collidepoint(mouse_pos):
                 self.next = 'high_score'
                 self.done = True
-            elif self.rect_sair.collidepoint(mouse_pos):
+            elif self.__rect_sair.collidepoint(mouse_pos):
                 self.quit = True
     
     def handle_collisions(self):
@@ -43,8 +43,8 @@ class MenuState(AbstractState):
         self.draw(screen)
 
     def draw(self, screen):
-        screen.blit(self.background, dest=(0, 0))
-        #pg.draw.rect(screen, (255, 255, 255), self.rect_sair)
+        screen.blit(self.__background, dest=(0, 0))
+        #pg.draw.rect(screen, (255, 255, 255), self.__rect_sair)
 
         #screen.blit(self.text_jogar, dest=(200, 500))
     
