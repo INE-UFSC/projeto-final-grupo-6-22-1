@@ -229,8 +229,8 @@ class GameState(AbstractState):
 
         self.__room_controller.draw(screen)
 
-        for sprite in self.__walls_sprite_group: #debug para ver as paredes
-            pg.draw.rect(screen, (255, 255, 255), sprite.rect)
+        """for sprite in self.__walls_sprite_group: #debug para ver as paredes
+            pg.draw.rect(screen, (255, 255, 255), sprite.rect)"""
 
         self.__objects_sprite_group.draw(screen)
 
