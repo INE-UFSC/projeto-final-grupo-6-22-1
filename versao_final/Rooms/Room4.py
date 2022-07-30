@@ -13,21 +13,21 @@ from Sprites.Wall import Wall
 class Room4(AbstractRoom):
     def __init__(self):
         super().__init__()
-        self.background = get_image('Telas', 'Tela.png')
-        self.background = pg.transform.smoothscale(self.background, (1280, 700))
-        self.art= get_image('maps', 'map4.png')
-        self.art = pg.transform.smoothscale(self.art, (170, 170))
-        self.art2= get_image('picture', 'picture2.png')
-        self.art2 = pg.transform.smoothscale(self.art2, (100, 135))
+        self.__background = get_image('Telas', 'Tela.png')
+        self.__background = pg.transform.smoothscale(self.__background, (1280, 700))
+        self.__art= get_image('maps', 'map4.png')
+        self.__art = pg.transform.smoothscale(self.__art, (170, 170))
+        self.__art2= get_image('picture', 'picture2.png')
+        self.__art2 = pg.transform.smoothscale(self.__art2, (100, 135))
         
     def draw_background(self, screen):
         #screen.fill((255, 255, 255))
         
-        screen.blit(self.background, dest=(0, 0))
+        screen.blit(self.__background, dest=(0, 0))
 
     def draw_art(self, screen):
-        screen.blit(self.art, (10, 10))
-        screen.blit(self.art2, (650, 205))
+        screen.blit(self.__art, (10, 10))
+        screen.blit(self.__art2, (650, 205))
     
     def load(self, entry_point):
         self.start_walls()

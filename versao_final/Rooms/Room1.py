@@ -10,19 +10,18 @@ from Sprites.Objects.Piano import Piano
 class Room1(AbstractRoom):
     def __init__(self):
         super().__init__()
-        self.rect_mudarSala = pg.Rect(60, 100, 300, 287) #apagar isso também
-        self.background = get_image('Telas', 'Tela.png')
-        self.background = pg.transform.smoothscale(self.background, (1280, 700))
-        self.art= get_image('maps', 'map1.png')
-        self.art = pg.transform.smoothscale(self.art, (170, 170))
+        self.__background = get_image('Telas', 'Tela.png')
+        self.__background = pg.transform.smoothscale(self.__background, (1280, 700))
+        self.__art= get_image('maps', 'map1.png')
+        self.__art = pg.transform.smoothscale(self.__art, (170, 170))
         
     def draw_background(self, screen):
         #screen.fill((255, 255, 255))
         
-        screen.blit(self.background, dest=(0, 0))
+        screen.blit(self.__background, dest=(0, 0))
 
     def draw_art(self, screen):
-        screen.blit(self.art, (10, 10))
+        screen.blit(self.__art, (10, 10))
         
     
     def load(self, entry_point):
@@ -37,17 +36,6 @@ class Room1(AbstractRoom):
     
 
         #tentativa de fazer uma maneira de mudar de tela
-
-    def handle_events(self, event):
-        if event.type == pg.QUIT:
-            self.quit = True
-
-        if event.type == pg.MOUSEBUTTONDOWN:
-            mouse_pos = pg.mouse.get_pos()
-            if self.rect_mudarSala.collidepoint(mouse_pos):
-                self.next = 'room2'
-                self.done = True
-
 
 
     def draw(self, screen):
