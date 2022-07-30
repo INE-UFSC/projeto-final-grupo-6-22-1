@@ -9,7 +9,7 @@ class GameState(AbstractState):
     def __init__(self):
         super().__init__()
         self.__music_loop_channel = pg.mixer.Channel(0)
-        self.__music_loop_channel.play(pg.mixer.Sound(os.path.join("Sounds", "musica.ogg")), loops=-1)
+        
         self.__music_loop_channel.set_volume(0.075)
         self.__music_loop_channel.pause()
         self.__player_sprite_group = pg.sprite.GroupSingle()
@@ -41,6 +41,7 @@ class GameState(AbstractState):
         self.__start_time = pg.time.get_ticks()
         self.__end_time = -1
 
+        self.__music_loop_channel.play(pg.mixer.Sound(os.path.join("Sounds", "musica.ogg")), loops=-1)
         self.__music_loop_channel.unpause()
 
         for room in self.__room_controller.rooms:
