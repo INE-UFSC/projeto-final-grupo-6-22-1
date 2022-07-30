@@ -1,4 +1,5 @@
 import pygame as pg
+import os
 from get_image import get_image
 from States.AbstractState import AbstractState
 from Sprites.Player import Player
@@ -7,7 +8,10 @@ from Rooms.RoomController import RoomController
 class GameState(AbstractState):
     def __init__(self):
         super().__init__()
-
+        self.__music_loop_channel = pg.mixer.Channel(0)
+        self.__music_loop_channel.play(pg.mixer.Sound(os.path.join("Sounds", "musica.ogg")), loops=-1)
+        self.__music_loop_channel.set_volume(0.075)
+        self.__music_loop_channel.pause()
         self.__player_sprite_group = pg.sprite.GroupSingle()
         self.__attack_sprite_group = pg.sprite.Group()
         self.__room_entities_sprite_group = pg.sprite.Group()
@@ -23,6 +27,8 @@ class GameState(AbstractState):
         for sprite in self.__room_entities_sprite_group:
             sprite.kill()
 
+        self.__music_loop_channel.pause()
+
         self.__player_sprite_group.sprite.kill()
 
         if self.next == "win":
@@ -34,6 +40,8 @@ class GameState(AbstractState):
         self.__player_sprite_group.add(Player(start_pos=(500, 500)))
         self.__start_time = pg.time.get_ticks()
         self.__end_time = -1
+
+        self.__music_loop_channel.unpause()
 
         for room in self.__room_controller.rooms:
             room.cleared = False
