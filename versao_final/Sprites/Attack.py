@@ -35,7 +35,7 @@ class Attack(Entity):
         self.start_time = pg.time.get_ticks()
 
     def update(self):
-        if pg.start_time.get_ticks() - self.time >= self.time_spawned:
+        if pg.time.get_ticks() - self.start_time >= self.time_spawned:
             self.kill()
 
     def hit(self):

@@ -49,6 +49,9 @@ class Player(Entity):
             self.image = copy(self.original_image)
             self.immune = False
 
+        if self.health > 5:
+            self.health = 5
+
     def change_tint(self, color):
         """
         Aplica na surface a color fornecida
