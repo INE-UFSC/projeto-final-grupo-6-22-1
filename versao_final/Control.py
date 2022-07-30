@@ -21,6 +21,7 @@ class Control:
         self.__score_controller = ScoreController()
 
     def init(self):
+        pg.mixer.pre_init(44100, -16, 2, 2048)
         pg.init()
         self.menu_font = pg.font.Font(pg.font.get_default_font(), 30)
         self.state_dict = {
